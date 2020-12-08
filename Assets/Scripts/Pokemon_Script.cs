@@ -20,7 +20,7 @@ public class Pokemon_Script : MonoBehaviour
     /// <param name="attack"> The attack used.</param>
     /// <param name="objective"> The objective, can be itself.</param>
     /// <param name="attacking">The pokemon that is attacking.</param>
-    public void Attack(Attack attack, Pokemon_Script objective, Pokemon_Script attacking){
+    public void Attack(Attack attack, Pokemon_Script objective){
             switch (attack.TypeOfAttack)
             {
                 case Type_of_Attack.CURE:
@@ -29,7 +29,7 @@ public class Pokemon_Script : MonoBehaviour
                     break;
                 case Type_of_Attack.OFFENSIVE:
                     Debug.Log(pokemon.Name + " use " + attack.Name + " against " + objective.pokemon.Name + ".");
-                    TurnManagerRequest.instance.RequestAttack(attacking.pokemon, objective.pokemon, attack);
+                    TurnManagerRequest.instance.RequestAttack(this.pokemon, objective.pokemon, attack);
                     break;
                 case Type_of_Attack.DEFENSIVE:
                     Debug.Log(pokemon.Name + " use " + attack.Name + ".");
