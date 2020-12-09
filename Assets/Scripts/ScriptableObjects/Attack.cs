@@ -3,8 +3,7 @@
 public enum Type_of_Attack{
     OFFENSIVE,
     DEFENSIVE,
-    MODIFIER,
-    CURE
+    MODIFIER
 }
 
 public enum Stat_Modified{

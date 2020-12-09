@@ -23,10 +23,6 @@ public class Pokemon_Script : MonoBehaviour
     public void Attack(Attack attack, Pokemon_Script objective){
             switch (attack.TypeOfAttack)
             {
-                case Type_of_Attack.CURE:
-                    Debug.Log(pokemon.Name + " restored a little " + attack.StatModified + " using " + attack.Name + ".");
-                //
-                    break;
                 case Type_of_Attack.OFFENSIVE:
                     Debug.Log(pokemon.Name + " use " + attack.Name + " against " + objective.pokemon.Name + ".");
                     TurnManagerRequest.instance.RequestAttack(this.pokemon, objective.pokemon, attack);
