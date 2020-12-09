@@ -46,7 +46,7 @@ public class TurnManagerRequest : MonoBehaviour
         newRequest.m_Attacker = attacker;
         newRequest.m_Defender = defender;
 
-        requests.Add(newRequest.m_Attacker.Velocity, newRequest);
+        requests.Add(newRequest.m_Attacker.velocity + attack.priority, newRequest);
     }
     
 
@@ -73,33 +73,44 @@ public class TurnManagerRequest : MonoBehaviour
     /// <returns>Returns the value of life that the attack has caused to the objective. If this value is 0, that means that the attack was unsuccessful.</returns>
     private void OnAttack(Attack attack, Pokemon defending, Pokemon attacking)
     {
-        float result = CalculateDamagedBasedOnTheMatrixType(attack, defending);
+        float result = CalculateDamagedBasedOnTheMatrixtype(attack, defending);
         switch (result)
         {
             case 0:
-                Debug.Log("It doesn't affect " + defending.Name + ".");
+                Debug.Log("It doesn't affect " + defending.name + ".");
                 break;
             case 0.5f:
                 Debug.Log("It's not very effective...");
-                defending.Health -= CalculateDamageGiven(attacking, defending, attack, result);
+                defending.hp -= CalculateDamageGiven(attacking, defending, attack, result);
                 break;
             case 2:
                 Debug.Log("It's super effective!");
-                defending.Health -= CalculateDamageGiven(attacking, defending, attack, result);
+                defending.hp -= CalculateDamageGiven(attacking, defending, attack, result);
                 break;
             default:
                 Debug.Log("It's effective.");
-                defending.Health -= CalculateDamageGiven(attacking, defending, attack, result);
+                defending.hp -= CalculateDamageGiven(attacking, defending, attack, result);
                 break;
         }
     }
 
-    private float CalculateDamagedBasedOnTheMatrixType(Attack attack, Pokemon defender)
+    private void OnModifiedStatus(Attack attack, Pokemon objective)
+    {
+        //Implementar cuando un pokemon se modifica un status, ya sea a ti mismo, como al contrario.
+    }
+
+    /// <summary>
+    /// Calculate the type modifier based on the Types Table.
+    /// </summary>
+    /// <param name="attack">Attack used.</param>
+    /// <param name="defender">Pokemon that is being attacked.</param>
+    /// <returns></returns>
+    private float CalculateDamagedBasedOnTheMatrixtype(Attack attack, Pokemon defender)
     {
         float result = 1;
-        foreach (Type typeDefender in defender.Type)
+        foreach (Type typeDefender in defender.types)
         {
-            result *= types.types_Matrix[(int)attack.Type, (int)typeDefender];
+            result *= types.types_Matrix[(int)attack.type, (int)typeDefender];
         }
         return result;
     }
@@ -112,13 +123,37 @@ public class TurnManagerRequest : MonoBehaviour
     /// <param name="attack">Attack used.</param>
     /// <param name="multiplier"></param>
     /// <returns>The damage value</returns>
-    private int CalculateDamageGiven(Pokemon Attacking, Pokemon Defending, Attack attack, float multiplier)
+    private int CalculateDamageGiven(Pokemon Attacking, Pokemon Defending, Attack attack, float attackType)
     {
-        int damage = 0;
-        int attackDamageBase = attack.Damage;
-        int attack_defense = Attacking.Attack / Defending.Defense;
-        damage = (int)((((attackDamageBase * attack_defense) / 50) + 2) * multiplier);
-        return damage;
+        int attackDamageBase = attack.power;
+        float attack_defense = attack.category == Category.PHYSICAL ? Attacking.attack / Defending.defense : Attacking.specialAttack / Defending.specialDefense;
+        float level = ((Attacking.level * 2) / 5) + 2;
+
+        float critical = Random.Range(1, 8) == 1 ? 1.5f : 1f;
+        float random = Random.Range(0.85f, 1f);
+        float STAB = CalculateSTAB(Defending, attack);
+        float modifier = attackType * critical * random * STAB;
+
+        return (int)((((level * attackDamageBase * attack_defense) / 50) + 2) * modifier);
+    }
+
+    /// <summary>
+    /// Calculate the STAB --> Same-Type Attack Bonus.
+    /// </summary>
+    /// <param name="Defending"> Pokemon that is being attacked.</param>
+    /// <param name="attack">The Attack used.</param>
+    /// <returns></returns>
+    private float CalculateSTAB(Pokemon Defending, Attack attack)
+    {
+        foreach (Type type in Defending.types)
+        {
+            if (attack.type == type)
+            {
+                return 1.5f;
+            }
+        }
+
+        return 1f;
     }
     #endregion
 }
