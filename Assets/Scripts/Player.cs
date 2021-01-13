@@ -7,8 +7,82 @@ public class Player : MonoBehaviour
     public Pokemon[] pokemons;
     public Pokemon activePokemon;
 
+    public string actualVoiceCommand;
+
     private GameObject pokemonObject;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private Pokemon GetPokemonInVoiceCommand()
+    {
+        List<string> words = new List<string>();
+
+        string characters = "";
+        foreach (char c in actualVoiceCommand)
+        {
+            if(c == ' ')
+            {
+                words.Add(characters);
+            }
+            else
+            {
+                characters += c;
+            }
+        }
+
+        foreach (Pokemon p in pokemons)
+        {
+            foreach (string w in words)
+            {
+                if(p.name == w)
+                {
+                    return p;
+                }
+            }
+        }
+
+        //Si no devuelve nada pues estamos jodidos.
+        return null;
+    }
+
+    private Attack GetAttackInVoiceCommand()
+    {
+        List<string> words = new List<string>();
+
+        string characters = "";
+        foreach (char c in actualVoiceCommand)
+        {
+            if (c == ' ')
+            {
+                words.Add(characters);
+            }
+            else
+            {
+                characters += c;
+            }
+        }
+
+        foreach (Attack a in activePokemon.m_attacks)
+        {
+            foreach (string w in words)
+            {
+                if (a.name == w)
+                {
+                    return a;
+                }
+            }
+        }
+
+        //Si no devuelve nada pues estamos jodidos.
+        return null;
+    }
+
+    /// <summary>
+    /// Active the pokemon specified.
+    /// </summary>
+    /// <param name="id"></param>
     public void ActivatePokemon(int id)
     {
         activePokemon = pokemons[id];

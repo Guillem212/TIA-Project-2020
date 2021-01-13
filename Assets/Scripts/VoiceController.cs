@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TextSpeech;
 using UnityEngine.Android;
-using UnityEngine.UI;
+using TMPro;
 
 public class VoiceController : MonoBehaviour
 {
     const string LANG_CODE = "en-US";
 
-    public Text uiText;
+    //DEBUG
+    public TextMeshProUGUI uiText;
+
+    private Player player;
 
     private void Start()
     {
+        player = GetComponent<Player>();
         Setup(LANG_CODE);
 #if UNITY_ANDROID
         SpeechToText.instance.onPartialResultsCallback = OnPartialSpeechResult;
@@ -44,24 +48,17 @@ public class VoiceController : MonoBehaviour
         SpeechToText.instance.StopRecording();
     }
 
-    public void OnClickSpeak()
-    {
-        TextToSpeech.instance.StartSpeak(uiText.text);
-    }
-    public void OnClickStopSpeak()
-    {
-        TextToSpeech.instance.StopSpeak();
-    }
-
     private void OnFinalSpeechResult(string result)
     {
-        uiText.text = "Holaquetal";
-        uiText.text = result;
+        player.actualVoiceCommand = result;
+
+        //DEBUG
+        uiText.text = player.actualVoiceCommand;
     }
 
     private void OnPartialSpeechResult(string result)
     {
-        uiText.text = result;
+        player.actualVoiceCommand = result;
     }
 
     #endregion
@@ -69,6 +66,5 @@ public class VoiceController : MonoBehaviour
     private void Setup(string code)
     {
         SpeechToText.instance.Setting(code);
-        TextToSpeech.instance.Setting(code, 1, 1);
     }
 }
