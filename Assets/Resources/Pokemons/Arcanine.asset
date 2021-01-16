@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d234f9ae78662c41ab3babafeb390ee, type: 3}
+  m_Name: Arcanine
+  m_EditorClassIdentifier: 
+  name: Arcanine
+  model: {fileID: 8571916213799542629, guid: 991ad3e43659be14a88639da02433499, type: 3}
+  types: 06000000
+  level: 50
+  hp: 90
+  attack: 110
+  specialAttack: 100
+  defense: 80
+  specialDefense: 80
+  velocity: 95
+  m_attacks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
