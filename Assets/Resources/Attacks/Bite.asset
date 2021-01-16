@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70014c77195ac8643925eb9eb05c5f88, type: 3}
+  m_Name: Bite
+  m_EditorClassIdentifier: 
+  name: Bite
+  description: The target is bitten with viciously sharp fangs.
+  pp: 25
+  power: 60
+  priority: 0
+  type: 1
+  category: 0
+  statusModified: 0
+  objective: 1

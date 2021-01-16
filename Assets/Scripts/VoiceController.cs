@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using TextSpeech;
 using UnityEngine.Android;
-using TMPro;
 
 public class VoiceController : MonoBehaviour
 {
     const string LANG_CODE = "en-US";
 
-    //DEBUG
-    public TextMeshProUGUI uiText;
+    public string speech;
 
-    private Player player;
+    public static VoiceController instance;
+
+    private void Awake()
+    {
+        if(instance is null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance);
+        }
+        speech = "";
+    }
 
     private void Start()
     {
-        player = GetComponent<Player>();
         Setup(LANG_CODE);
 #if UNITY_ANDROID
         SpeechToText.instance.onPartialResultsCallback = OnPartialSpeechResult;
@@ -50,15 +60,12 @@ public class VoiceController : MonoBehaviour
 
     private void OnFinalSpeechResult(string result)
     {
-        player.actualVoiceCommand = result;
-
-        //DEBUG
-        uiText.text = player.actualVoiceCommand;
+        speech = result;
     }
 
     private void OnPartialSpeechResult(string result)
     {
-        player.actualVoiceCommand = result;
+        speech = result;
     }
 
     #endregion

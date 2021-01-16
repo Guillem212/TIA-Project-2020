@@ -4,78 +4,43 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Pokemon[] pokemons;
-    public Pokemon activePokemon;
 
-    public string actualVoiceCommand;
+    public Pokemon[] pokemons;
+
+    public Pokemon activePokemon { get; }
+    private Pokemon ObjectiveActivePokemon;
 
     private GameObject pokemonObject;
 
+    public GameObject card;
+
     /// <summary>
-    /// 
+    /// Get the pokemon selected through voice command
     /// </summary>
     /// <returns></returns>
     private Pokemon GetPokemonInVoiceCommand()
     {
-        List<string> words = new List<string>();
-
-        string characters = "";
-        foreach (char c in actualVoiceCommand)
-        {
-            if(c == ' ')
-            {
-                words.Add(characters);
-            }
-            else
-            {
-                characters += c;
-            }
-        }
-
         foreach (Pokemon p in pokemons)
         {
-            foreach (string w in words)
-            {
-                if(p.name == w)
-                {
-                    return p;
-                }
-            }
+            if (VoiceController.instance.speech.Contains(p.name))
+                return p;
         }
-
-        //Si no devuelve nada pues estamos jodidos.
         return null;
     }
 
-    private Attack GetAttackInVoiceCommand()
+
+    /// <summary>
+    /// Get the attack selected through voice command
+    /// </summary>
+    /// <param name="actualPokemon"></param>
+    /// <returns></returns>
+    private Attack GetAttackInVoiceCommand(Pokemon actualPokemon)
     {
-        List<string> words = new List<string>();
-
-        string characters = "";
-        foreach (char c in actualVoiceCommand)
+        foreach (Attack a in actualPokemon.m_attacks)
         {
-            if (c == ' ')
-            {
-                words.Add(characters);
-            }
-            else
-            {
-                characters += c;
-            }
+            if (VoiceController.instance.speech.Contains(a.name))
+                return a;
         }
-
-        foreach (Attack a in activePokemon.m_attacks)
-        {
-            foreach (string w in words)
-            {
-                if (a.name == w)
-                {
-                    return a;
-                }
-            }
-        }
-
-        //Si no devuelve nada pues estamos jodidos.
         return null;
     }
 
@@ -83,10 +48,9 @@ public class Player : MonoBehaviour
     /// Active the pokemon specified.
     /// </summary>
     /// <param name="id"></param>
-    public void ActivatePokemon(int id)
+    public void ActivatePokemon()
     {
-        activePokemon = pokemons[id];
-        //Falta cambiar el transform.position por el transform de la carta. Aunque al final el player puede ser la carta en si.
+        //Falta poner el transform de la carta en la que esta spawneando.
         pokemonObject = Instantiate(activePokemon.model, transform.position, Quaternion.identity);
     }
 
@@ -96,21 +60,29 @@ public class Player : MonoBehaviour
     /// <param name="attack"> The attack used.</param>
     /// <param name="objective"> The objective, can be itself.</param>
     /// <param name="attacking">The pokemon that is attacking.</param>
-    public void Attack(Attack attack, Pokemon objective)
+    public void Attack(Attack attack)
     {
+        switch (attack.objective)
+        {
+            case Objective.USER:
+                TurnManagerRequest.instance.RequestAttack(activePokemon, activePokemon, attack);
+                break;
+            default:
+                TurnManagerRequest.instance.RequestAttack(activePokemon, ObjectiveActivePokemon, attack);
+                break;
+        }
+
+        //DEBUG
         switch (attack.category)
         {
             case Category.PHYSICAL:
-                Debug.Log(activePokemon.name + " use " + attack.name + " against " + objective.name + ".");
-                TurnManagerRequest.instance.RequestAttack(this.activePokemon, objective, attack);
+                Debug.Log(activePokemon.name + " use " + ".");
                 break;
             case Category.SPECIAL:
-                Debug.Log(activePokemon.name + " use " + attack.name + " against " + objective.name + ".");
-                TurnManagerRequest.instance.RequestAttack(this.activePokemon, objective, attack);
+                Debug.Log(activePokemon.name + " use " + ".");
                 break;
             default:
                 Debug.Log(activePokemon.name + " has improved his " + attack.statusModified + " using " + attack.name + ".");
-                //
                 break;
         }
     }

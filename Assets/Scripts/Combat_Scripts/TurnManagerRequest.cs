@@ -7,8 +7,7 @@ public class TurnManagerRequest : MonoBehaviour
     /// <summary>
     /// List sorted by the velocity of the attacker.
     /// </summary>
-    private SortedList<int, Request> requests = new SortedList<int, Request>();
-
+    private SortedList<int, Request> requests;
     public static TurnManagerRequest instance;
 
     private Types_Matrix types;
@@ -18,12 +17,14 @@ public class TurnManagerRequest : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(instance);
         }
         else
         {
-            Destroy(this);
+            Destroy(instance);
         }
+
+        requests = new SortedList<int, Request>();
     }
 
     private void Start()
@@ -51,13 +52,26 @@ public class TurnManagerRequest : MonoBehaviour
     
 
     /// <summary>
-    /// Calculate the result of the attacks.
+    /// Calculate the result of the attacks at the end of the decision stage.
     /// </summary>
     public void StartAttacks()
     {
         foreach (var request in requests)
         {
-            OnAttack(request.Value.m_Attack, request.Value.m_Defender, request.Value.m_Attacker);
+            switch (request.Value.m_Attack.category)
+            {
+                case Category.PHYSICAL:
+                    OnAttack(request.Value.m_Attack, request.Value.m_Defender, request.Value.m_Attacker);
+                    break;
+                case Category.SPECIAL:
+                    OnAttack(request.Value.m_Attack, request.Value.m_Defender, request.Value.m_Attacker);
+                    break;
+                case Category.STATUS:
+                    OnModifiedStatus(request.Value.m_Attack, request.Value.m_Defender);
+                    break;
+                default:
+                    break;
+            }
         }
     }
     #endregion
@@ -94,9 +108,35 @@ public class TurnManagerRequest : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculate the result of the status modified.
+    /// </summary>
+    /// <param name="attack"></param>
+    /// <param name="objective"></param>
     private void OnModifiedStatus(Attack attack, Pokemon objective)
     {
-        //Implementar cuando un pokemon se modifica un status, ya sea a ti mismo, como al contrario.
+        switch (attack.statusModified)
+        {
+            case StatusModified.HP:
+                break;
+            case StatusModified.ATTACK:
+                objective.attack += (int)Mathf.Lerp(0, objective.attack, attack.power);
+                break;
+            case StatusModified.SATTACK:
+                objective.specialAttack += (int)Mathf.Lerp(0, objective.specialAttack, attack.power);
+                break;
+            case StatusModified.DEFENSE:
+                objective.defense += (int)Mathf.Lerp(0, objective.defense, attack.power);
+                break;
+            case StatusModified.SDEFENSE:
+                objective.specialDefense += (int)Mathf.Lerp(0, objective.specialDefense, attack.power);
+                break;
+            case StatusModified.VELOCITY:
+                objective.velocity += (int)Mathf.Lerp(0, objective.velocity, attack.power);
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -134,7 +174,7 @@ public class TurnManagerRequest : MonoBehaviour
         float STAB = CalculateSTAB(Defending, attack);
         float modifier = attackType * critical * random * STAB;
 
-        return (int)((((level * attackDamageBase * attack_defense) / 50) + 2) * modifier);
+        return (int)(((level * attackDamageBase * attack_defense / 50) + 2) * modifier);
     }
 
     /// <summary>

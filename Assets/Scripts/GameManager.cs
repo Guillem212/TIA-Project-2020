@@ -5,6 +5,21 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
+    public static GameManager instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(instance);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
