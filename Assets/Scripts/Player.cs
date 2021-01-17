@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
 
     private GameObject pokemonObject;
 
-    public GameObject card;
-
     /// <summary>
     /// Get the pokemon selected through voice command
     /// </summary>
