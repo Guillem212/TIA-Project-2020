@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 961616f1458adfd4d951038262c44223, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 71664ab6f9109544a8c9dd9ed65db2b2, type: 2}
