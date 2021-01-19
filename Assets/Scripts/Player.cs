@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
 {
 
     public Pokemon[] pokemons;
-
     public Pokemon activePokemon { get; }
     private Pokemon ObjectiveActivePokemon;
 
