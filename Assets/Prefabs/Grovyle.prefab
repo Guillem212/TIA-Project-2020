@@ -5574,6 +5574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7207277733268310535}
   - component: {fileID: 3667416899005157501}
+  - component: {fileID: 3424040837281876783}
   m_Layer: 0
   m_Name: Grovyle
   m_TagString: Untagged
@@ -5624,6 +5625,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &3424040837281876783
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8020546195841224893}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3173269, y: 2.223963, z: 1.1435518}
+  m_Center: {x: 0.015110895, y: 1.125742, z: 0.23043719}
 --- !u!1 &8034571715073307025
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,7 +37,6 @@ public class ClickVoiceHandler : MonoBehaviour, IPointerEnterHandler, IPointerUp
             voiceController.StartListening();
             buttonDown = false;
         }
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)

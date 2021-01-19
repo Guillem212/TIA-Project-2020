@@ -5,12 +5,34 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public Pokemon[] pokemons;
+    private Pokemon[] pokemons;
 
-    public Pokemon activePokemon { get; }
+    public Pokemon activePokemon;
     private Pokemon ObjectiveActivePokemon;
 
     private GameObject pokemonObject;
+
+    private VoiceController voiceController;
+
+    private void Awake()
+    {
+        pokemons = Resources.LoadAll<Pokemon>("Pokemons");
+        voiceController = FindObjectOfType<VoiceController>();
+    }
+
+    private void Update()
+    {
+        if(voiceController.speech != "")
+        {
+            activePokemon = GetPokemonInVoiceCommand();
+            if(activePokemon != null)
+            {
+                ClearPokemon();
+                ActivatePokemon();
+            }
+            voiceController.speech = "";
+        }
+    }
 
     /// <summary>
     /// Get the pokemon selected through voice command
@@ -21,7 +43,10 @@ public class Player : MonoBehaviour
         foreach (Pokemon p in pokemons)
         {
             if (VoiceController.instance.speech.Contains(p.name))
+            {
+                print(p.name);
                 return p;
+            }
         }
         return null;
     }
@@ -48,8 +73,35 @@ public class Player : MonoBehaviour
     /// <param name="id"></param>
     public void ActivatePokemon()
     {
-        //Falta poner el transform de la carta en la que esta spawneando.
-        pokemonObject = Instantiate(activePokemon.model, transform.position, Quaternion.identity);
+        Transform[] t = GameObject.Find("Pokemon_1").GetComponentsInChildren<Transform>();
+        
+        foreach (var item in t)
+        {
+            if(item.name == activePokemon.name)
+            {
+                SkinnedMeshRenderer[] skinned = item.GetComponentsInChildren<SkinnedMeshRenderer>();
+                foreach (var s in skinned)
+                {
+                    s.enabled = true;
+                }
+            }
+        }
+        pokemonObject = activePokemon.model;
+    }
+
+    public void ClearPokemon()
+    {
+        Transform[] t = GameObject.Find("Pokemon_1").GetComponentsInChildren<Transform>();
+
+        foreach (var item in t)
+        {
+            SkinnedMeshRenderer[] skinned = item.GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (var s in skinned)
+            {
+                s.enabled = false;
+            }
+        }
+        pokemonObject = null;
     }
 
     /// <summary>
@@ -84,4 +136,5 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
 }
