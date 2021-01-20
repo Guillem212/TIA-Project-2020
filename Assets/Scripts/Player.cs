@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(VoiceController))]
 public class Player : MonoBehaviour
 {
 
@@ -10,14 +11,14 @@ public class Player : MonoBehaviour
     public Pokemon activePokemon;
     private Pokemon ObjectiveActivePokemon;
 
-    private GameObject pokemonObject;
+    private GameObject pokemonModel;
 
     private VoiceController voiceController;
 
     private void Awake()
     {
         pokemons = Resources.LoadAll<Pokemon>("Pokemons");
-        voiceController = FindObjectOfType<VoiceController>();
+        voiceController = GetComponent<VoiceController>();
     }
 
     private void Update()
@@ -71,37 +72,30 @@ public class Player : MonoBehaviour
     /// Active the pokemon specified.
     /// </summary>
     /// <param name="id"></param>
-    public void ActivatePokemon()
+    private void ActivatePokemon()
     {
-        Transform[] t = GameObject.Find("Pokemon_1").GetComponentsInChildren<Transform>();
+        GameObject[] pokContainer = GameObject.Find("Pokemon_1").GetComponent<PokemonContainerScript>().pokemons;
         
-        foreach (var item in t)
+        foreach (var p in pokContainer)
         {
-            if(item.name == activePokemon.name)
+            if(p.name == activePokemon.name)
             {
-                SkinnedMeshRenderer[] skinned = item.GetComponentsInChildren<SkinnedMeshRenderer>();
-                foreach (var s in skinned)
-                {
-                    s.enabled = true;
-                }
+                p.SetActive(true);
+                pokemonModel = p;
+                break;
             }
         }
-        pokemonObject = activePokemon.model;
     }
 
-    public void ClearPokemon()
+    private void ClearPokemon()
     {
-        Transform[] t = GameObject.Find("Pokemon_1").GetComponentsInChildren<Transform>();
+        GameObject[] pokContainer = GameObject.Find("Pokemon_1").GetComponent<PokemonContainerScript>().pokemons;
 
-        foreach (var item in t)
+        foreach (var p in pokContainer)
         {
-            SkinnedMeshRenderer[] skinned = item.GetComponentsInChildren<SkinnedMeshRenderer>();
-            foreach (var s in skinned)
-            {
-                s.enabled = false;
-            }
+            p.SetActive(false);
         }
-        pokemonObject = null;
+        pokemonModel = null;
     }
 
     /// <summary>
