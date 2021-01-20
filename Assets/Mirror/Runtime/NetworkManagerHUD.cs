@@ -120,6 +120,7 @@ namespace Mirror
             if (NetworkServer.active)
             {
                 GUILayout.Label("Server: active. Transport: " + Transport.activeTransport);
+                GUILayout.Label("Server IpAdress: " + manager.networkAddress);
             }
             if (NetworkClient.isConnected)
             {
