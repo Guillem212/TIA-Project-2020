@@ -224,6 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2050858774205384092}
   - component: {fileID: 5374538064737378278}
+  - component: {fileID: -8524929684808019629}
   m_Layer: 0
   m_Name: Totodile
   m_TagString: Untagged
@@ -266,6 +267,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &-8524929684808019629
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674720710304538406}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.2491775, z: 1}
+  m_Center: {x: 0, y: 0.6170801, z: 0}
 --- !u!1 &2007090887973179086
 GameObject:
   m_ObjectHideFlags: 0

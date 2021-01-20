@@ -8,7 +8,6 @@ public class VoiceController : MonoBehaviour
 {
     const string LANG_CODE = "en-EU";
 
-    [HideInInspector]
     public string speech;
 
     public static VoiceController instance;
@@ -78,7 +77,7 @@ public class VoiceController : MonoBehaviour
 
     private void OnGUI()
     {
-        Rect rect = new Rect(Vector2.one * 100, Vector2.one * 100);
-        GUI.TextArea(rect, speech);
+        Rect r = new Rect(new Vector2(100, 100), Vector2.one * 100);
+        GUI.TextArea(r, speech);
     }
 }
