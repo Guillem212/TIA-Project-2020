@@ -48,7 +48,7 @@ namespace PhotonTutorial.Menus
             findOpponentPanel.SetActive(false);
             waitingStatusPanel.SetActive(true);
 
-            waitingStatusText.text = "Creating Room...";
+            waitingStatusText.text = "Creating Match...";
 
             if (PhotonNetwork.IsConnected)
             {
@@ -67,7 +67,7 @@ namespace PhotonTutorial.Menus
             findOpponentPanel.SetActive(false);
             waitingStatusPanel.SetActive(true);
 
-            waitingStatusText.text = "Joining Room " + RoomNameField.text + "...";
+            waitingStatusText.text = "Joining Match " + RoomNameField.text + "...";
 
             if (PhotonNetwork.IsConnected)
             {
@@ -108,14 +108,14 @@ namespace PhotonTutorial.Menus
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            Debug.Log("No clients are waiting for an opponent, creating a new room");
+            Debug.Log("No clients are waiting for an opponent, creating a new Match");
 
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = MaxPlayersPerRoom });
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            if(!RoomNameField.text.Equals("")) Debug.Log("The Room " + RoomNameField.text + " does not exist");
+            if(!RoomNameField.text.Equals("")) Debug.Log("The Match " + RoomNameField.text + " does not exist");
             else Debug.Log("You didn't enter any name");
             findOpponentPanel.SetActive(true);
             waitingStatusPanel.SetActive(false);
@@ -124,13 +124,13 @@ namespace PhotonTutorial.Menus
 
         public override void OnJoinedRoom()
         {
-            Debug.Log("Client successfully joined a room");
+            Debug.Log("Client successfully joined a Match");
 
             int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
             if(playerCount != MaxPlayersPerRoom)
             {
-                if(isCreatingRoom) waitingStatusText.text = "Waiting For Opponent\nRoom Name: " + PhotonNetwork.CurrentRoom.Name;
+                if(isCreatingRoom) waitingStatusText.text = "Waiting For Opponent\nMatch Name: " + PhotonNetwork.CurrentRoom.Name;
                 else waitingStatusText.text = "Waiting For Opponent";
                 Debug.Log("Client is waiting for an opponent");
                 BackButton.SetActive(true);
