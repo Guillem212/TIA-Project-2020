@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 40919617}
   - component: {fileID: 40919616}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,12 +191,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 223974228}
   - component: {fileID: 223974231}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: Microphone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedLibrary: {fileID: 11400000, guid: 2a8c1a722554aae4d9de9715100426d3, type: 2}
   m_MaxNumberOfMovingImages: 4
-  m_TrackedImagePrefab: {fileID: 8571916213799542629, guid: 991ad3e43659be14a88639da02433499, type: 3}
+  m_TrackedImagePrefab: {fileID: 323894003007111525, guid: a0fb51045ffc2bd439237c5f32422550, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa635d97f86f47f42b4348d33cdf98cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pokemons: []
+  activePokemon: {fileID: 0}
 --- !u!1 &1908294612
 GameObject:
   m_ObjectHideFlags: 0

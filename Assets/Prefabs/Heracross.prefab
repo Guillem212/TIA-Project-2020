@@ -658,6 +658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2971643045188529979}
   - component: {fileID: 2483371489970664834}
+  - component: {fileID: -4901037379306343342}
   m_Layer: 0
   m_Name: Heracross
   m_TagString: Untagged
@@ -700,6 +701,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &-4901037379306343342
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483371489970664833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5330496, y: 2.5649185, z: 1.4352423}
+  m_Center: {x: -0.0122259185, y: 1.2910559, z: 0.21762118}
 --- !u!1 &2579015878093479525
 GameObject:
   m_ObjectHideFlags: 0

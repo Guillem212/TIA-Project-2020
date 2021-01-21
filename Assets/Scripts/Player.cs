@@ -2,14 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(VoiceController))]
 public class Player : MonoBehaviour
 {
 
-    public Pokemon[] pokemons;
-    public Pokemon activePokemon { get; }
+    private Pokemon[] pokemons;
+
+    public Pokemon activePokemon;
     private Pokemon ObjectiveActivePokemon;
 
-    private GameObject pokemonObject;
+    private GameObject pokemonModel;
+
+    private VoiceController voiceController;
+
+    private void Awake()
+    {
+        pokemons = Resources.LoadAll<Pokemon>("Pokemons");
+        voiceController = GetComponent<VoiceController>();
+    }
+
+    private void Update()
+    {
+        if(voiceController.speech != "")
+        {
+            activePokemon = GetPokemonInVoiceCommand();
+            if(activePokemon != null)
+            {
+                ClearPokemon();
+                ActivatePokemon();
+            }
+            voiceController.speech = "";
+        }
+    }
 
     /// <summary>
     /// Get the pokemon selected through voice command
@@ -20,7 +44,10 @@ public class Player : MonoBehaviour
         foreach (Pokemon p in pokemons)
         {
             if (VoiceController.instance.speech.Contains(p.name))
+            {
+                print(p.name);
                 return p;
+            }
         }
         return null;
     }
@@ -45,10 +72,30 @@ public class Player : MonoBehaviour
     /// Active the pokemon specified.
     /// </summary>
     /// <param name="id"></param>
-    public void ActivatePokemon()
+    private void ActivatePokemon()
     {
-        //Falta poner el transform de la carta en la que esta spawneando.
-        pokemonObject = Instantiate(activePokemon.model, transform.position, Quaternion.identity);
+        GameObject[] pokContainer = GameObject.Find("Pokemon_1").GetComponent<PokemonContainerScript>().pokemons;
+        
+        foreach (var p in pokContainer)
+        {
+            if(p.name == activePokemon.name)
+            {
+                p.SetActive(true);
+                pokemonModel = p;
+                break;
+            }
+        }
+    }
+
+    private void ClearPokemon()
+    {
+        GameObject[] pokContainer = GameObject.Find("Pokemon_1").GetComponent<PokemonContainerScript>().pokemons;
+
+        foreach (var p in pokContainer)
+        {
+            p.SetActive(false);
+        }
+        pokemonModel = null;
     }
 
     /// <summary>
@@ -83,4 +130,5 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
 }
