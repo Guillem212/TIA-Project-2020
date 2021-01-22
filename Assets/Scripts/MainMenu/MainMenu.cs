@@ -7,7 +7,8 @@ namespace PhotonTutorial.Menus
 {
     public class MainMenu : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private GameObject findOpponentPanel = null;
+        [SerializeField] private GameObject CreateOrJoinPanel = null;
+        [SerializeField] private GameObject RandomOrJoinMatchPanel = null;
         [SerializeField] private GameObject waitingStatusPanel = null;
         [SerializeField] private TextMeshProUGUI waitingStatusText = null;
         [SerializeField] private TMP_InputField RoomNameField = null;
@@ -25,7 +26,7 @@ namespace PhotonTutorial.Menus
         {
             isJoiningRandomRoom = true;
 
-            findOpponentPanel.SetActive(false);
+            RandomOrJoinMatchPanel.SetActive(false);
             waitingStatusPanel.SetActive(true);
 
             waitingStatusText.text = "Searching...";
@@ -45,7 +46,7 @@ namespace PhotonTutorial.Menus
         {
             isCreatingRoom = true;
 
-            findOpponentPanel.SetActive(false);
+            CreateOrJoinPanel.SetActive(false);
             waitingStatusPanel.SetActive(true);
 
             waitingStatusText.text = "Creating Match...";
@@ -64,7 +65,7 @@ namespace PhotonTutorial.Menus
         {
             isJoiningRoomByName = true;
 
-            findOpponentPanel.SetActive(false);
+            RandomOrJoinMatchPanel.SetActive(false);
             waitingStatusPanel.SetActive(true);
 
             waitingStatusText.text = "Joining Match " + RoomNameField.text + "...";
@@ -101,23 +102,34 @@ namespace PhotonTutorial.Menus
         public override void OnDisconnected(DisconnectCause cause)
         {
             waitingStatusPanel.SetActive(false);
-            findOpponentPanel.SetActive(true);
+            RandomOrJoinMatchPanel.SetActive(false);
+            CreateOrJoinPanel.SetActive(true);
 
             Debug.Log($"Disconnected due to: {cause}");
+            //_ShowAndroidToastMessage($"Disconnected due to: {cause}");
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            Debug.Log("No clients are waiting for an opponent, creating a new Match");
+            Debug.Log("No clients are waiting for an opponent, creating a new room");
+            //_ShowAndroidToastMessage("No clients are waiting for an opponent, creating a new room");
 
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = MaxPlayersPerRoom });
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            if(!RoomNameField.text.Equals("")) Debug.Log("The Match " + RoomNameField.text + " does not exist");
-            else Debug.Log("You didn't enter any name");
-            findOpponentPanel.SetActive(true);
+            if(!RoomNameField.text.Equals(""))
+            {
+                Debug.Log("The Match " + RoomNameField.text + " does not exist");
+                //_ShowAndroidToastMessage("The Match " + RoomNameField.text + " does not exist");
+            } 
+            else
+            {
+                Debug.Log("You didn't enter any Match name");
+                //_ShowAndroidToastMessage("You didn't enter any Match name");
+            } 
+            RandomOrJoinMatchPanel.SetActive(true);
             waitingStatusPanel.SetActive(false);
             isJoiningRoomByName = false;
         }
@@ -175,15 +187,34 @@ namespace PhotonTutorial.Menus
 
         public void f_BackToCreateOrJoinRoomPanel()
         {
+            PhotonNetwork.LeaveRoom();
+
+            CreateOrJoinPanel.SetActive(isCreatingRoom);
+            RandomOrJoinMatchPanel.SetActive(isJoiningRandomRoom || isJoiningRoomByName);
+            waitingStatusPanel.SetActive(false);
+
             isJoiningRandomRoom = false;
             isCreatingRoom = false;
             isJoiningRoomByName = false;
-            PhotonNetwork.LeaveRoom();
-
-            findOpponentPanel.SetActive(true);
-            waitingStatusPanel.SetActive(false);
 
             BackButton.SetActive(false);
+        }
+
+        /// <param name="message">Message string to show in the toast.</param>
+        private void _ShowAndroidToastMessage(string message)
+        {
+            AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+
+            if (unityActivity != null)
+            {
+                AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
+                unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+                {
+                    AndroidJavaObject toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText", unityActivity, message, 0);
+                    toastObject.Call("show");
+                }));
+            }
         }
     }
 
