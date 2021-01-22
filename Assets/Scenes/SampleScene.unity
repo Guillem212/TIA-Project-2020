@@ -647,6 +647,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 257725208}
     m_Modifications:
+    - target: {fileID: 107759188, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 583650542, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 583650543, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 583650543, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 583650543, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 583650543, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 427.23462
+      objectReference: {fileID: 0}
+    - target: {fileID: 583650543, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 583650543, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.12532277
+      objectReference: {fileID: 0}
+    - target: {fileID: 583650543, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -324.44006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321015481, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 1549981625, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925747084, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
     - target: {fileID: 1990091832105432475, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: voiceController
       value: 
