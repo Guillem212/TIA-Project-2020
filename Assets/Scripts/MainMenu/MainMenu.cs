@@ -17,6 +17,7 @@ namespace PhotonTutorial.Menus
         private bool isJoiningRandomRoom = false;
         private bool isCreatingRoom = false;
         private bool isJoiningRoomByName = false;
+
         private const string GameVersion = "0.1";
         private const int MaxPlayersPerRoom = 2;
 
@@ -105,13 +106,13 @@ namespace PhotonTutorial.Menus
             CreateOrJoinPanel.SetActive(true);
 
             Debug.Log($"Disconnected due to: {cause}");
-            _ShowAndroidToastMessage($"Disconnected due to: {cause}");
+            //_ShowAndroidToastMessage($"Disconnected due to: {cause}");
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
             Debug.Log("No clients are waiting for an opponent, creating a new room");
-            _ShowAndroidToastMessage("No clients are waiting for an opponent, creating a new room");
+            //_ShowAndroidToastMessage("No clients are waiting for an opponent, creating a new room");
 
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = MaxPlayersPerRoom });
         }
@@ -121,12 +122,12 @@ namespace PhotonTutorial.Menus
             if(!RoomNameField.text.Equals(""))
             {
                 Debug.Log("The Match " + RoomNameField.text + " does not exist");
-                _ShowAndroidToastMessage("The Match " + RoomNameField.text + " does not exist");
+                //_ShowAndroidToastMessage("The Match " + RoomNameField.text + " does not exist");
             } 
             else
             {
                 Debug.Log("You didn't enter any Match name");
-                _ShowAndroidToastMessage("You didn't enter any Match name");
+                //_ShowAndroidToastMessage("You didn't enter any Match name");
             } 
             RandomOrJoinMatchPanel.SetActive(true);
             waitingStatusPanel.SetActive(false);
@@ -202,25 +203,18 @@ namespace PhotonTutorial.Menus
         /// <param name="message">Message string to show in the toast.</param>
         private void _ShowAndroidToastMessage(string message)
         {
+            AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
-            if(!Application.isEditor)
+            if (unityActivity != null)
             {
-                #if UNITY_ANDROID
-                AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-                AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-
-                if (unityActivity != null)
+                AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
+                unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
                 {
-                    AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
-                    unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
-                    {
-                        AndroidJavaObject toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText", unityActivity, message, 0);
-                        toastObject.Call("show");
-                    }));
-                }
-                #endif
+                    AndroidJavaObject toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText", unityActivity, message, 0);
+                    toastObject.Call("show");
+                }));
             }
-        
         }
     }
 
