@@ -87,6 +87,7 @@ public class TurnManagerRequest : MonoBehaviour
     /// <returns>Returns the value of life that the attack has caused to the objective. If this value is 0, that means that the attack was unsuccessful.</returns>
     private void OnAttack(Attack attack, Pokemon defending, Pokemon attacking)
     {
+        //**TO DO**: Callback at finish OnAttack to the original defensorPokemon
         float result = CalculateDamagedBasedOnTheMatrixtype(attack, defending);
         switch (result)
         {
