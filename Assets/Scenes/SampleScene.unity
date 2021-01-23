@@ -251,6 +251,11 @@ MonoBehaviour:
   m_SerializedLibrary: {fileID: 11400000, guid: 2a8c1a722554aae4d9de9715100426d3, type: 2}
   m_MaxNumberOfMovingImages: 4
   m_TrackedImagePrefab: {fileID: 323894003007111525, guid: a0fb51045ffc2bd439237c5f32422550, type: 3}
+--- !u!1 &486308312 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 746850231, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+  m_PrefabInstance: {fileID: 3748596195517350302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &1009094156
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -381,6 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePokemon: {fileID: 0}
+  selectedAttack: {fileID: 0}
   view: {fileID: 0}
 --- !u!114 &1065820897
 MonoBehaviour:
@@ -653,8 +659,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef7125faa5854f40b202c40f0210433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1065820893}
+  information_Panel: {fileID: 486308312}
+  ph_timerChoosePokemon: 30
+  ph_timerChooseAttack: 15
+  view: {fileID: 0}
   player_id: 0
-  turn: 0
+  turn: 1
+  ph_playersWithStadiumActive: 0
 --- !u!4 &1927210852
 Transform:
   m_ObjectHideFlags: 0
@@ -681,9 +693,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79a4535c9befb644877649c017971b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  information_Panel: {fileID: 486308312}
+  ph_timerChoosePokemon: 30
+  ph_timerChooseAttack: 15
   view: {fileID: 0}
-  ph_bothPlayerReady: 0
-  ph_playersWithStadiumActive: 0
 --- !u!114 &1927210854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,6 +726,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 257725208}
     m_Modifications:
+    - target: {fileID: 160306058, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1927210851}
+    - target: {fileID: 383778017, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 746850231, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1990091832105432475, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: voiceController
       value: 
@@ -805,5 +830,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3748596195739095754, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: voiceController
+      value: 
+      objectReference: {fileID: 1065820897}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}

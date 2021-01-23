@@ -6,6 +6,7 @@ public class Player : MonoBehaviourPun
 {
     private Pokemon[] pokemons;
     public Pokemon activePokemon;
+    public Attack selectedAttack = null;
     private Pokemon ObjectiveActivePokemon;
 
     private GameObject pokemonModel;

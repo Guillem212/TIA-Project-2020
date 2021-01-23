@@ -5,24 +5,25 @@ using Photon.Pun;
 
 public class TurnManagerRequest : MonoBehaviourPun
 {
+    #region Private Variables
     /// <summary>
     /// List sorted by the velocity of the attacker.
     /// </summary>
     private SortedList<int, Request> requests;
-    public static TurnManagerRequest instance;
-
     private Types_Matrix types;
 
+    #endregion
 
-    public PhotonView view;
-    public bool ph_bothPlayerReady;
-    public int ph_playersWithStadiumActive = 0;
+    #region Public Variables
+    public static TurnManagerRequest instance;
+   [HideInInspector] public PhotonView view;
+
+    #endregion
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(instance);
         }
         else
         {
@@ -34,7 +35,6 @@ public class TurnManagerRequest : MonoBehaviourPun
 
     private void Start()
     {
-        ph_playersWithStadiumActive = 0;
         types = new Types_Matrix();
         view = PhotonView.Get(this);
     }
@@ -50,6 +50,7 @@ public class TurnManagerRequest : MonoBehaviourPun
     [PunRPC]
     public void RequestAttack(Pokemon attacker, Pokemon defender, Attack attack)
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         Request newRequest = new Request();
         newRequest.m_Attack = attack;
         newRequest.m_Attacker = attacker;
@@ -82,21 +83,9 @@ public class TurnManagerRequest : MonoBehaviourPun
             }
         }
     }
-
-    [PunRPC]
-    public void PlayerActivateStadium(){
-        ph_playersWithStadiumActive +=1;
-        if(ph_playersWithStadiumActive == 2) AttackPanelOn();
-    } 
     #endregion
 
     #region PRIVATE METHODS
-    private void AttackPanelOn(){
-        GameObject canvas = GameObject.Find("Player_Canvas");
-        canvas.transform.Find("Attack_Panel").gameObject.SetActive(true);
-        canvas.transform.Find("LookAtCard").gameObject.SetActive(false);
-    }
-
     /// <summary>
     /// Calculate the result of the attack.
     /// </summary>
