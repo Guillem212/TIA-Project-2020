@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class TurnManagerRequest : MonoBehaviour
+public class TurnManagerRequest : MonoBehaviourPun
 {
     /// <summary>
     /// List sorted by the velocity of the attacker.
@@ -12,6 +13,10 @@ public class TurnManagerRequest : MonoBehaviour
 
     private Types_Matrix types;
 
+
+    public PhotonView view;
+    public bool ph_bothPlayerReady;
+    public int ph_playersWithStadiumActive = 0;
     void Awake()
     {
         if (instance == null)
@@ -29,7 +34,9 @@ public class TurnManagerRequest : MonoBehaviour
 
     private void Start()
     {
+        ph_playersWithStadiumActive = 0;
         types = new Types_Matrix();
+        view = PhotonView.Get(this);
     }
 
     #region PUBLIC METHODS
@@ -40,6 +47,7 @@ public class TurnManagerRequest : MonoBehaviour
     /// <param name="attacker"></param>
     /// <param name="defender"></param>
     /// <param name="attack"></param>
+    [PunRPC]
     public void RequestAttack(Pokemon attacker, Pokemon defender, Attack attack)
     {
         Request newRequest = new Request();
@@ -74,9 +82,20 @@ public class TurnManagerRequest : MonoBehaviour
             }
         }
     }
+
+    [PunRPC]
+    public void PlayerActivateStadium(){
+        ph_playersWithStadiumActive +=1;
+        if(ph_playersWithStadiumActive == 2) AttackPanelOn();
+    } 
     #endregion
 
     #region PRIVATE METHODS
+    private void AttackPanelOn(){
+        GameObject canvas = GameObject.Find("Player_Canvas");
+        canvas.transform.Find("Attack_Panel").gameObject.SetActive(true);
+        canvas.transform.Find("LookAtCard").gameObject.SetActive(false);
+    }
 
     /// <summary>
     /// Calculate the result of the attack.
