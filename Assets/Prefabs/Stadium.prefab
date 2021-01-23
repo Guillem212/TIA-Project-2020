@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 323894003007111545}
   - component: {fileID: 323894003007111526}
   - component: {fileID: 323894003007111527}
+  - component: {fileID: -6482618170892818923}
   m_Layer: 0
   m_Name: Stadium
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-6482618170892818923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323894003007111525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f0fa4f600ba3794f9a0c598521494cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1513632349618670746
 PrefabInstance:
   m_ObjectHideFlags: 0
