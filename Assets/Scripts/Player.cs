@@ -1,25 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-public class Player : MonoBehaviourPun
+
+[RequireComponent(typeof(VoiceController))]
+public class Player : MonoBehaviour
 {
+
     private Pokemon[] pokemons;
+
     public Pokemon activePokemon;
     private Pokemon ObjectiveActivePokemon;
 
     private GameObject pokemonModel;
-    //private GameObject pokemonModel_2;
 
     private VoiceController voiceController;
-
-    public PhotonView view;
 
     private void Awake()
     {
         pokemons = Resources.LoadAll<Pokemon>("Pokemons");
         voiceController = GetComponent<VoiceController>();
-        view = PhotonView.Get(this);
     }
 
     private void Update()
@@ -29,8 +28,8 @@ public class Player : MonoBehaviourPun
             activePokemon = GetPokemonInVoiceCommand();
             if(activePokemon != null)
             {
-                view.RPC("ClearPokemon", RpcTarget.All, GameManager.instance.player_id);
-                view.RPC("ActivatePokemon", RpcTarget.All, GameManager.instance.player_id, activePokemon.name);
+                ClearPokemon();
+                ActivatePokemon();
             }
             voiceController.speech = "";
         }
@@ -73,26 +72,24 @@ public class Player : MonoBehaviourPun
     /// Active the pokemon specified.
     /// </summary>
     /// <param name="id"></param>
-    [PunRPC]
-    private void ActivatePokemon(int player_id, string pokemonCalled)
+    private void ActivatePokemon()
     {
-        GameObject[] pokContainer = GameObject.Find(player_id == 0 ? "Pokemon_1" : "Pokemon_2").GetComponent<PokemonContainerScript>().pokemons;
+        GameObject[] pokContainer = GameObject.Find("Pokemon_1").GetComponent<PokemonContainerScript>().pokemons;
         
         foreach (var p in pokContainer)
         {
-            if(p.name == pokemonCalled)
+            if(p.name == activePokemon.name)
             {
                 p.SetActive(true);
-                if(player_id == GameManager.instance.player_id) pokemonModel = p;
+                pokemonModel = p;
                 break;
             }
         }
     }
 
-    [PunRPC]
-    private void ClearPokemon(int player_id)
+    private void ClearPokemon()
     {
-        GameObject[] pokContainer = GameObject.Find(player_id == 0 ? "Pokemon_1" : "Pokemon_2").GetComponent<PokemonContainerScript>().pokemons;
+        GameObject[] pokContainer = GameObject.Find("Pokemon_1").GetComponent<PokemonContainerScript>().pokemons;
 
         foreach (var p in pokContainer)
         {
@@ -112,10 +109,10 @@ public class Player : MonoBehaviourPun
         switch (attack.objective)
         {
             case Objective.USER:
-                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.All, activePokemon, activePokemon, attack);
+                TurnManagerRequest.instance.RequestAttack(activePokemon, activePokemon, attack);
                 break;
             default:
-                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.All, activePokemon, ObjectiveActivePokemon, attack);
+                TurnManagerRequest.instance.RequestAttack(activePokemon, ObjectiveActivePokemon, attack);
                 break;
         }
 

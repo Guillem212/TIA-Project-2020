@@ -67,11 +67,11 @@ namespace PhotonTutorial.Menus
             RandomOrJoinMatchPanel.SetActive(false);
             waitingStatusPanel.SetActive(true);
 
-            waitingStatusText.text = "Joining Match " + RoomNameField.text.ToUpper() + "...";
+            waitingStatusText.text = "Joining Match " + RoomNameField.text + "...";
 
             if (PhotonNetwork.IsConnected)
             {
-                PhotonNetwork.JoinRoom(RoomNameField.text.Equals("")?"Default" : RoomNameField.text.ToUpper());
+                PhotonNetwork.JoinRoom(RoomNameField.text.Equals("")?"Default" : RoomNameField.text);
             }
             else
             {
@@ -94,7 +94,7 @@ namespace PhotonTutorial.Menus
             }
             else if(isJoiningRoomByName)
             {
-                PhotonNetwork.JoinRoom(RoomNameField.text.Equals("")?"Default" : RoomNameField.text.ToUpper());
+                PhotonNetwork.JoinRoom(RoomNameField.text.Equals("")?"Default" : RoomNameField.text);
             }
         }
 
@@ -110,8 +110,8 @@ namespace PhotonTutorial.Menus
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            Debug.Log("No trainers are waiting for an opponent, creating a new Match");
-            _ShowAndroidToastMessage("No trainers are waiting for an opponent, creating a new Match");
+            Debug.Log("No clients are waiting for an opponent, creating a new room");
+            _ShowAndroidToastMessage("No clients are waiting for an opponent, creating a new room");
 
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = MaxPlayersPerRoom });
         }
@@ -121,7 +121,7 @@ namespace PhotonTutorial.Menus
             if(!RoomNameField.text.Equals(""))
             {
                 Debug.Log("The Match " + RoomNameField.text + " does not exist");
-                _ShowAndroidToastMessage("The Match " + RoomNameField.text.ToUpper() + " does not exist");
+                _ShowAndroidToastMessage("The Match " + RoomNameField.text + " does not exist");
             } 
             else
             {
