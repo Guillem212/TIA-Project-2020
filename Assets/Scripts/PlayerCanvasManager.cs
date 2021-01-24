@@ -78,6 +78,8 @@ public class PlayerCanvasManager : MonoBehaviour
         childs[1].color = new Color(colorsType[(int)player.activePokemon.m_attacks[id].type].r, colorsType[(int)player.activePokemon.m_attacks[id].type].g, colorsType[(int)player.activePokemon.m_attacks[id].type].b, 0.8f);
         childs[2].sprite = player.activePokemon.m_attacks[id].typeSprite;
         name.text = player.activePokemon.m_attacks[id].name;
+
+        attacks[id].GetComponent<AttackButtonScript>().attack = player.activePokemon.m_attacks[id];
     }
 
 

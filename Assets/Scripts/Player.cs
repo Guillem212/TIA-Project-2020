@@ -7,7 +7,7 @@ public class Player : MonoBehaviourPun
     [HideInInspector]public Pokemon[] pokemons;
 
     public Pokemon activePokemon;
-    //public Attack selectedAttack = null;
+    public Attack selectedAttack = null;
     private Pokemon ObjectiveActivePokemon;
 
     private GameObject pokemonModel;

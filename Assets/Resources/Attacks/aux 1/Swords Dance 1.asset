@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70014c77195ac8643925eb9eb05c5f88, type: 3}
-  m_Name: Swords Dance
+  m_Name: Swords Dance 1
   m_EditorClassIdentifier: 
   name: Swords Dance
   description: 'A special move that greatly boosts the user''s Attack power. '
