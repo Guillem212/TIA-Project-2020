@@ -4,7 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 public class Player : MonoBehaviourPun
 {
-    private Pokemon[] pokemons;
+    [HideInInspector]public Pokemon[] pokemons;
+
     public Pokemon activePokemon;
     //public Attack selectedAttack = null;
     private Pokemon ObjectiveActivePokemon;
@@ -23,7 +24,7 @@ public class Player : MonoBehaviourPun
         view = PhotonView.Get(this);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if(voiceController.speech != "")
         {

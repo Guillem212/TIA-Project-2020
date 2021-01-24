@@ -385,6 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa635d97f86f47f42b4348d33cdf98cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pokemons: []
   activePokemon: {fileID: 0}
   view: {fileID: 0}
 --- !u!114 &1065820897
@@ -413,6 +414,7 @@ GameObject:
   - component: {fileID: 1400477147}
   - component: {fileID: 1400477146}
   - component: {fileID: 1400477145}
+  - component: {fileID: 1400477149}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -517,6 +519,19 @@ Transform:
   m_Father: {fileID: 257725208}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1400477149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400477143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ab050b2dd2a684ebd6cc650e60ff23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postprocessMaterial: {fileID: 2100000, guid: 446d383c880f15647a76ae774ad5c9c5, type: 2}
 --- !u!1 &1632696281
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,61 +739,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 257725208}
     m_Modifications:
+    - target: {fileID: 149533441, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1400477149}
     - target: {fileID: 160306058, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1927210851}
-    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 628117456, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 21300000, guid: 29a2dfe47c38b874eba8d60afec2901e, type: 3}
-    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_PreserveAspect
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 383778017, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 383778019, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1400477149}
     - target: {fileID: 746850231, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1033275673, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_text
-      value: Exit
-      objectReference: {fileID: 0}
-    - target: {fileID: 1560355633, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_text
-      value: Options
-      objectReference: {fileID: 0}
-    - target: {fileID: 1968753202, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 746850233, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_margin.y
+      value: 782.42236
       objectReference: {fileID: 0}
     - target: {fileID: 1990091832105432475, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: voiceController
@@ -876,6 +855,10 @@ PrefabInstance:
       propertyPath: voiceController
       value: 
       objectReference: {fileID: 1065820897}
+    - target: {fileID: 7382423875515431604, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
 --- !u!1 &3748596195517350303 stripped

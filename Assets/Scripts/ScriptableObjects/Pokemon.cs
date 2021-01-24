@@ -4,7 +4,7 @@
 public class Pokemon : ScriptableObject
 {
     public new string name;
-    public GameObject model;
+    public Sprite pokemonImage;
     public Type[] types;
     public int level;
 

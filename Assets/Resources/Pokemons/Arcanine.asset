@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Arcanine
   m_EditorClassIdentifier: 
   name: Arcanine
-  model: {fileID: 8571916213799542629, guid: 991ad3e43659be14a88639da02433499, type: 3}
+  pokemonImage: {fileID: 21300000, guid: 2db1ce848b9344e478021d6df090751c, type: 3}
   types: 06000000
   level: 50
   hp: 90

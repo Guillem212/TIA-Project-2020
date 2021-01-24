@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Grovyle
   m_EditorClassIdentifier: 
   name: Grovyle
-  model: {fileID: 8020546195841224893, guid: 23f39df1e6abb8a42a68df2aeb6ac9f6, type: 3}
+  pokemonImage: {fileID: 21300000, guid: 412cbbdf4b2b13c4c97f7e2d077a4879, type: 3}
   types: 09000000
   level: 50
   hp: 90
