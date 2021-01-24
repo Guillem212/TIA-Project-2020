@@ -250,7 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedLibrary: {fileID: 11400000, guid: 2a8c1a722554aae4d9de9715100426d3, type: 2}
   m_MaxNumberOfMovingImages: 4
-  m_TrackedImagePrefab: {fileID: 323894003007111525, guid: a0fb51045ffc2bd439237c5f32422550, type: 3}
+  m_TrackedImagePrefab: {fileID: 8143305183225632235, guid: 76ba735595108224ebea461390d32cab, type: 3}
 --- !u!1 &486308312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 746850231, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
@@ -386,7 +386,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePokemon: {fileID: 0}
-  selectedAttack: {fileID: 0}
   view: {fileID: 0}
 --- !u!114 &1065820897
 MonoBehaviour:
