@@ -23,7 +23,7 @@ MonoBehaviour:
   specialDefense: 80
   velocity: 95
   m_attacks:
-  - {fileID: 11400000, guid: 2134ef39da69aa942a365f0f0c89ff36, type: 2}
-  - {fileID: 11400000, guid: b557ce018598ece47a2b4396ac1b7918, type: 2}
-  - {fileID: 11400000, guid: 056eeb557496888429764b8f17003fc5, type: 2}
-  - {fileID: 11400000, guid: 76005426db5ff294a889e51916b2acea, type: 2}
+  - {fileID: 11400000, guid: 8f6aa4e003f735448945ae6608da501d, type: 2}
+  - {fileID: 11400000, guid: 69bdb5da82102f14f9853cfc300571b7, type: 2}
+  - {fileID: 11400000, guid: c741d26feaabe714397069b1330dbdad, type: 2}
+  - {fileID: 11400000, guid: 83a0cc9f5c8459f4eb76ee0d8eb36766, type: 2}

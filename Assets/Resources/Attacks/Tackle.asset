@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70014c77195ac8643925eb9eb05c5f88, type: 3}
-  m_Name: Swords Dance
+  m_Name: Tackle
   m_EditorClassIdentifier: 
-  name: Swords Dance
-  description: 'A special move that greatly boosts the user''s Attack power. '
-  pp: 20
-  power: 100
+  name: Tackle
+  description: A physical attack in which the user charges and slams into the target
+    with its whole body.
+  pp: 35
+  power: 40
   priority: 0
   type: 12
-  category: 2
-  statusModified: 2
-  objective: 0
+  category: 0
+  statusModified: 0
+  objective: 1
   typeSprite: {fileID: 21300000, guid: 7d27283e265167b49b5b7e8e7a112a00, type: 3}
-  categorySprite: {fileID: 21300000, guid: 9606f236f3e9acb4ea956bb7ecde1fc5, type: 3}
+  categorySprite: {fileID: 21300000, guid: 327a69047858c884d9b799060cadd645, type: 3}
