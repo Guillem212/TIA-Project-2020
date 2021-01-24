@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Heracross
   m_EditorClassIdentifier: 
   name: Heracross
-  model: {fileID: 2483371489970664833, guid: fcbec06cbec664845ad4fdc821cfb441, type: 3}
+  pokemonImage: {fileID: 21300000, guid: a6e6204157223724c9384aae7185df67, type: 3}
   types: 00000000
   level: 50
   hp: 90

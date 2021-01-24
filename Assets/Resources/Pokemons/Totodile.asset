@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Totodile
   m_EditorClassIdentifier: 
   name: Totodile
-  model: {fileID: 1674720710304538406, guid: 180e514718db84e45a285a31fa7d2935, type: 3}
+  pokemonImage: {fileID: 21300000, guid: 71097d08fcda9c9498f71d8ca795cdd4, type: 3}
   types: 00000000
   level: 50
   hp: 90
