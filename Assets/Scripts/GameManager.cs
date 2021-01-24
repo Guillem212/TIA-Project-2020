@@ -134,6 +134,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject canvas = GameObject.Find("Player_Canvas");
         canvas.transform.Find("Select_Pokemon_Panel").gameObject.SetActive(true);
         canvas.transform.Find("Attack_Panel").gameObject.SetActive(false);
+        canvas.GetComponent<PlayerCanvasManager>().InitializeCanvas();
+
 
         InitializeTimer(ph_timerChoosePokemon);
 
@@ -144,6 +146,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject canvas = GameObject.Find("Player_Canvas");
         canvas.transform.Find("Attack_Panel").gameObject.SetActive(true);
         canvas.transform.Find("Select_Pokemon_Panel").gameObject.SetActive(false);
+        canvas.GetComponent<PlayerCanvasManager>().UpdateAttacks();
 
         InitializeTimer(ph_timerChooseAttack);
 

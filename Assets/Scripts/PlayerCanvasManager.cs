@@ -23,9 +23,9 @@ public class PlayerCanvasManager : MonoBehaviour
 
     public GameObject attackInformation;
 
+    private int aux = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    public void InitializeCanvas()
     {
         player = FindObjectOfType<Player>();
         scrollViewContent = FindObjectOfType<ScrollRect>().content.gameObject;
@@ -63,7 +63,7 @@ public class PlayerCanvasManager : MonoBehaviour
     {
         for (int i = 0; i < attacks.Length; i++)
         {
-            attacks[i].GetComponent<Image>().color = colorsType[(int)player.activePokemon.m_attacks[i].type];
+            attacks[i].GetComponent<Image>().color = new Color(colorsType[(int)player.activePokemon.m_attacks[i].type].r, colorsType[(int)player.activePokemon.m_attacks[i].type].g, colorsType[(int)player.activePokemon.m_attacks[i].type].b, 0.4f);
             UpdateAttacksChildren(i);
         }
     }
@@ -73,8 +73,10 @@ public class PlayerCanvasManager : MonoBehaviour
         Image[] childs = attacks[id].GetComponentsInChildren<Image>();
         TextMeshProUGUI name = attacks[id].GetComponentInChildren<TextMeshProUGUI>();
 
-        childs[0].color = colorsType[(int)player.activePokemon.m_attacks[id].type];
-        childs[1].sprite = player.activePokemon.m_attacks[id].typeSprite;
+        aux = childs.Length;
+
+        childs[1].color = new Color(colorsType[(int)player.activePokemon.m_attacks[id].type].r, colorsType[(int)player.activePokemon.m_attacks[id].type].g, colorsType[(int)player.activePokemon.m_attacks[id].type].b, 0.8f);
+        childs[2].sprite = player.activePokemon.m_attacks[id].typeSprite;
         name.text = player.activePokemon.m_attacks[id].name;
     }
 
@@ -91,8 +93,8 @@ public class PlayerCanvasManager : MonoBehaviour
         Image[] imageChilds = attackInformation.GetComponentsInChildren<Image>();
         TextMeshProUGUI[] textChilds = attackInformation.GetComponentsInChildren<TextMeshProUGUI>();
 
-        imageChilds[0].sprite = attack.typeSprite;
-        imageChilds[1].sprite = attack.categorySprite;
+        imageChilds[1].sprite = attack.typeSprite;
+        imageChilds[2].sprite = attack.categorySprite;
 
         textChilds[0].text = attack.type.ToString();
         textChilds[1].text = attack.power.ToString();

@@ -676,7 +676,7 @@ MonoBehaviour:
   player: {fileID: 1065820893}
   information_Panel: {fileID: 486308312}
   ImageCard_Panel: {fileID: 3748596195517350303}
-  ph_timerChoosePokemon: 30
+  ph_timerChoosePokemon: 5
   ph_timerChooseAttack: 15
   ph_currentTime: 0
   view: {fileID: 0}
@@ -751,14 +751,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1400477149}
-    - target: {fileID: 746850231, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 746850233, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_margin.y
-      value: 782.42236
-      objectReference: {fileID: 0}
     - target: {fileID: 1990091832105432475, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: voiceController
       value: 
@@ -855,9 +847,53 @@ PrefabInstance:
       propertyPath: voiceController
       value: 
       objectReference: {fileID: 1065820897}
-    - target: {fileID: 7382423875515431604, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[13].b
+      value: 0.8196079
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[13].g
+      value: 0.41176474
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[13].r
+      value: 0.7803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[14].b
+      value: 0.53333336
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[14].g
+      value: 0.5372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[14].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[15].b
+      value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[15].g
+      value: 0.7372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[15].r
+      value: 0.80392164
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[16].b
+      value: 0.6392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[16].g
+      value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962966792999593787, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: colorsType.Array.data[16].r
+      value: 0.2392157
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
