@@ -7,9 +7,8 @@ public class InterfaceInteractable : MonoBehaviour
     private void Start() 
     {
         GameObject info_panel = GameObject.Find("Information_Panel");
-        info_panel.GetComponentInChildren<RectTransform>().gameObject.SetActive(false);
         info_panel.SetActive(false);
 
-        TurnManagerRequest.instance.view.RPC("PlayerActivateStadium", Photon.Pun.RpcTarget.All);
+        GameManager.instance.view.RPC("PlayerActivateStadium", Photon.Pun.RpcTarget.All);
     }
 }

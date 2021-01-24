@@ -9,9 +9,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject player; 
     [SerializeField] private GameObject information_Panel; 
+    [SerializeField] private GameObject ImageCard_Panel; 
     [SerializeField] private int ph_timerChoosePokemon;
     [SerializeField] private int ph_timerChooseAttack;
-    private int ph_currentTime;
+    public int ph_currentTime;
     private Coroutine h_TimerCoroutine;
     #endregion
 
@@ -47,7 +48,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-       
+       if(Input.GetKeyDown(KeyCode.X))
+       {
+           view.RPC("PlayerActivateStadium", Photon.Pun.RpcTarget.All);
+       }
     }
     #region RPC Functions
 
@@ -56,11 +60,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(turn == 1)
         {
             AttackTurn();
-            turn = 2;
         }
-        else
-        {
-            turn = 1;
+        else //Ha muerto un pokemon y hay que volver a elegir (VUELVE EL TURNO 1)
+        {  
+            ChoosePokemonTurn();
         }
         Debug.Log(turn);
 
@@ -75,6 +78,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void RefreshTimer_UI(int timeLeft)
     {
+        information_Panel.SetActive(timeLeft >-1);
         information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = timeLeft.ToString();
     }
     
@@ -84,23 +88,30 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         _ShowAndroidToastMessage("Opponent trainer left the Match");
+        StopAllCoroutines();
+        PhotonNetwork.AutomaticallySyncScene = false;
         PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
         PhotonNetwork.LoadLevel(0);
     }
 
     #endregion
 
     #region Coroutines
-    IEnumerator Timer(){
-        yield return new WaitForSeconds(1f);
-        ph_currentTime--;
-        view.RPC("RefreshTimer_UI", RpcTarget.All, ph_currentTime);
-        if(ph_currentTime <= 0)
+    IEnumerator Timer()
+    {
+        while(ph_currentTime >= 0)
         {
-            information_Panel.SetActive(false);
-            if(turn == 1)GameManager.instance.view.RPC("PassTurn", RpcTarget.All);
-            else PassAttackToHost();
+            yield return new WaitForSeconds(1f);      
+            ph_currentTime--;
+            view.RPC("RefreshTimer_UI", RpcTarget.All, ph_currentTime);
         }
+        h_TimerCoroutine = null;
+        if(turn == 1)GameManager.instance.view.RPC("PassTurn", RpcTarget.All);
+        else PassAttackToHost();
     }
     #endregion
 
@@ -110,8 +121,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     public void ph_LeaveRoom()
     {
+        PhotonNetwork.AutomaticallySyncScene = false;
+        StopAllCoroutines();
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel(0);
     }
     #endregion
 
@@ -138,6 +150,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     private void InitializeTimer(int time){
         information_Panel.SetActive(true);
+        ImageCard_Panel.SetActive(false);
+        information_Panel.GetComponentInChildren<RectTransform>().gameObject.SetActive(false);
         ph_currentTime = time;
         view.RPC("RefreshTimer_UI", RpcTarget.All, ph_currentTime);
 

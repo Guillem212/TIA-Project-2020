@@ -6,7 +6,7 @@ public class Player : MonoBehaviourPun
 {
     private Pokemon[] pokemons;
     public Pokemon activePokemon;
-    public Attack selectedAttack = null;
+    //public Attack selectedAttack = null;
     private Pokemon ObjectiveActivePokemon;
 
     private GameObject pokemonModel;
@@ -14,7 +14,7 @@ public class Player : MonoBehaviourPun
 
     private VoiceController voiceController;
 
-    public PhotonView view;
+    [HideInInspector] public PhotonView view;
 
     private void Awake()
     {

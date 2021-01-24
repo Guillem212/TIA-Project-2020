@@ -661,8 +661,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1065820893}
   information_Panel: {fileID: 486308312}
+  ImageCard_Panel: {fileID: 3748596195517350303}
   ph_timerChoosePokemon: 30
   ph_timerChooseAttack: 15
+  ph_currentTime: 0
   view: {fileID: 0}
   player_id: 0
   turn: 1
@@ -693,9 +695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79a4535c9befb644877649c017971b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  information_Panel: {fileID: 486308312}
-  ph_timerChoosePokemon: 30
-  ph_timerChooseAttack: 15
   view: {fileID: 0}
 --- !u!114 &1927210854
 MonoBehaviour:
@@ -730,13 +729,57 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1927210851}
+    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 29a2dfe47c38b874eba8d60afec2901e, type: 3}
+    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 270819608, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 383778017, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 383778019, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 746850231, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033275673, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_text
+      value: Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560355633, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_text
+      value: Options
+      objectReference: {fileID: 0}
+    - target: {fileID: 1968753202, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1990091832105432475, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: voiceController
@@ -836,3 +879,8 @@ PrefabInstance:
       objectReference: {fileID: 1065820897}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+--- !u!1 &3748596195517350303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 383778017, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+  m_PrefabInstance: {fileID: 3748596195517350302}
+  m_PrefabAsset: {fileID: 0}

@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Hidden_BlurShader
   m_Shader: {fileID: 4800000, guid: 7c32c3351c561d14a88f8f8379d4e3c4, type: 3}
-  m_ShaderKeywords: GAUSS _SAMPLES_BOXLOW _SAMPLES_HIGH
+  m_ShaderKeywords: GAUSS _SAMPLES_BOXLOW _SAMPLES_LOW
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -26,7 +26,7 @@ Material:
     m_Floats:
     - _BlurSize: 0.05
     - _Gauss: 1
-    - _Samples: 2
+    - _Samples: 0
     - _StandardDeviation: 0.04
     m_Colors: []
   m_BuildTextureStacks: []
