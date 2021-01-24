@@ -75,7 +75,7 @@ public class PlayerCanvasManager : MonoBehaviour
 
         aux = childs.Length;
 
-        childs[1].color = new Color(colorsType[(int)player.activePokemon.m_attacks[id].type].r, colorsType[(int)player.activePokemon.m_attacks[id].type].g, colorsType[(int)player.activePokemon.m_attacks[id].type].b, 0.8f);
+        childs[1].color = new Color(colorsType[(int)player.activePokemon.m_attacks[id].type].r, colorsType[(int)player.activePokemon.m_attacks[id].type].g, colorsType[(int)player.activePokemon.m_attacks[id].type].b, 0.6f);
         childs[2].sprite = player.activePokemon.m_attacks[id].typeSprite;
         name.text = player.activePokemon.m_attacks[id].name;
 
@@ -90,7 +90,7 @@ public class PlayerCanvasManager : MonoBehaviour
     public void UpdateAttackInformation(Attack attack)
     {
 
-        attackInformation.GetComponent<Image>().color = colorsType[(int)attack.type];
+        attackInformation.GetComponent<Image>().color = new Color(colorsType[(int)attack.type].r, colorsType[(int)attack.type].g, colorsType[(int)attack.type].b, 0.6f);
 
         Image[] imageChilds = attackInformation.GetComponentsInChildren<Image>();
         TextMeshProUGUI[] textChilds = attackInformation.GetComponentsInChildren<TextMeshProUGUI>();

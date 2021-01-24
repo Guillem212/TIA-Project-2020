@@ -20,6 +20,8 @@ public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerE
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        timeElapsed = 0;
+        isPressed = false;
     }
     void Update()
     {
