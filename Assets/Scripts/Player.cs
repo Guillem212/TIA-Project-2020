@@ -28,13 +28,24 @@ public class Player : MonoBehaviourPun
     {
         if(voiceController.speech != "")
         {
-            activePokemon = GetPokemonInVoiceCommand();
-            if(activePokemon != null)
-            {
-                view.RPC("ClearPokemon", RpcTarget.All, GameManager.instance.player_id);
-                view.RPC("ActivatePokemon", RpcTarget.All, GameManager.instance.player_id, activePokemon.name);
+            switch (GameManager.instance.turn){
+                case 1:
+                    activePokemon = GetPokemonInVoiceCommand();
+                    if(activePokemon != null)
+                    {
+                        view.RPC("ClearPokemon", RpcTarget.All, GameManager.instance.player_id);
+                        view.RPC("ActivatePokemon", RpcTarget.All, GameManager.instance.player_id, activePokemon.name);
+                    }
+                    voiceController.speech = "";
+                    break;
+                case 2:
+                    selectedAttack = GetAttackInVoiceCommand(activePokemon);
+                    voiceController.speech = "";
+                    break;
+                default:
+                    break;
             }
-            voiceController.speech = "";
+
         }
     }
 

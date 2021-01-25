@@ -679,6 +679,7 @@ MonoBehaviour:
   ImageCard_Panel: {fileID: 3748596195517350303}
   ph_timerChoosePokemon: 5
   ph_timerChooseAttack: 15
+  _arSession: {fileID: 0}
   ph_currentTime: 0
   view: {fileID: 0}
   player_id: 0

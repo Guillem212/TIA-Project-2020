@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using UnityEngine.XR.Management;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject ImageCard_Panel; 
     [SerializeField] private int ph_timerChoosePokemon;
     [SerializeField] private int ph_timerChooseAttack;
+
     public int ph_currentTime;
     private Coroutine h_TimerCoroutine;
     #endregion
@@ -36,6 +38,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Destroy(instance);
         }
+
+        /*var xrManagerSettings = XRGeneralSettings.Instance.Manager;
+        xrManagerSettings.DeinitializeLoader();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reload current scene
+        xrManagerSettings.InitializeLoaderSync();*/
     }
 
     // Start is called before the first frame update
