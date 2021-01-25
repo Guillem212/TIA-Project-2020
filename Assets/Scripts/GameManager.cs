@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static GameManager instance;
     [HideInInspector] public int player_id;
     public int turn;
-    public int ph_playersWithStadiumActive = 0;
+    public int ph_playersWithStadiumActive;
     #endregion
 
     void Awake()
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient) player_id = 0; //Si soy el Host mi ID es 0 (Me asigno Player)
         else player_id = 1;
         ph_playersWithStadiumActive = 0;
+        turn = 0;
     }
 
     // Update is called once per frame
@@ -95,7 +97,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        PhotonNetwork.LoadLevel(0);
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene(0);
     }
 
     #endregion
