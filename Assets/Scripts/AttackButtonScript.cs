@@ -50,6 +50,14 @@ public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerE
             timeElapsed = 0;
             wasPressed = false;
         }
+
+        checkCurrentActiveAttack();
+    }
+
+    private void checkCurrentActiveAttack(){
+        if(player.selectedAttack == attack){
+            GetComponent<Animator>().SetTrigger("Selected");
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
