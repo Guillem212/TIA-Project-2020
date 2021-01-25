@@ -135,6 +135,27 @@ public class GameManager : MonoBehaviourPunCallbacks
         StopAllCoroutines();
         PhotonNetwork.LeaveRoom();
     }
+
+    public void RefreshUIAttacks(Request request){
+        information_Panel.SetActive(true);
+        ImageCard_Panel.SetActive(false);
+        //DEBUG
+        switch (request.m_Attack.category)
+        {
+            case Category.PHYSICAL:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = request.m_Attacker.name + " use " + ".";
+                Debug.Log(request.m_Attacker.name + " use " + ".");
+                break;
+            case Category.SPECIAL:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = request.m_Attacker.name + " use " + ".";
+                Debug.Log(request.m_Attacker.name + " use " + ".");
+                break;
+            default:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = request.m_Attacker.name + " has improved his " + request.m_Attack.statusModified + " using " + request.m_Attack.name + ".";
+                Debug.Log(request.m_Attacker.name + " has improved his " + request.m_Attack.statusModified + " using " + request.m_Attack.name + ".");
+                break;
+        }
+    }
     #endregion
 
     #region PRIVATE METHODS
@@ -164,7 +185,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void InitializeTimer(int time){
         information_Panel.SetActive(true);
         ImageCard_Panel.SetActive(false);
-        information_Panel.GetComponentInChildren<RectTransform>().gameObject.SetActive(false);
+    
         ph_currentTime = time;
         view.RPC("RefreshTimer_UI", RpcTarget.All, ph_currentTime);
 
