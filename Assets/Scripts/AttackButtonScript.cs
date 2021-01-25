@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -17,7 +18,7 @@ public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     [HideInInspector] public Attack attack;
 
-    private void Start()
+    private void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         timeElapsed = 0;
@@ -41,7 +42,7 @@ public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerE
         {
             if(timeElapsed < timeMaxToPress)
             {
-                player.selectedAttack = attack;
+                VoiceController.instance.speech = attack.name;
             }
             else
             {
@@ -55,8 +56,12 @@ public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
 
     private void checkCurrentActiveAttack(){
-        if(player.selectedAttack == attack){
-            GetComponent<Animator>().SetTrigger("Selected");
+        if(player.selectedAttack.name.Equals(attack.name)){
+            if(GetComponent<Image>().color.a != 0.9f)
+                GetComponent<Image>().color = new Color( GetComponent<Image>().color.r,  GetComponent<Image>().color.g,  GetComponent<Image>().color.b, 0.9f);
+        }
+        else if(GetComponent<Image>().color.a != 0.5f){
+            GetComponent<Image>().color = new Color( GetComponent<Image>().color.r,  GetComponent<Image>().color.g,  GetComponent<Image>().color.b, 0.5f);
         }
     }
 
