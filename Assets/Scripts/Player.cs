@@ -13,7 +13,7 @@ public class Player : MonoBehaviourPun
     private GameObject pokemonModel;
     //private GameObject pokemonModel_2;
 
-    private VoiceController voiceController;
+    [HideInInspector] public VoiceController voiceController;
 
     [HideInInspector] public PhotonView view;
 
@@ -76,7 +76,11 @@ public class Player : MonoBehaviourPun
     {
         foreach (Attack a in actualPokemon.m_attacks)
         {
-            if (VoiceController.instance.speech.Contains(a.name))
+            string attackName = a.name;
+            string speechAux = VoiceController.instance.speech;
+            //attackName.ToLower();
+            //speechAux.ToLower();
+            if (speechAux.ToLower().Contains(attackName.ToLower()))
                 return a;
         }
         return null;

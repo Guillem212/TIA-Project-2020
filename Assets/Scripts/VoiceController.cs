@@ -76,4 +76,9 @@ public class VoiceController : MonoBehaviour
     {
         SpeechToText.instance.Setting(code);
     }
+
+    private void OnGUI() {
+        Rect r = new Rect(Vector2.one * 100, Vector2.one * 100);
+        GUI.TextArea(r, speech);
+    }
 }
