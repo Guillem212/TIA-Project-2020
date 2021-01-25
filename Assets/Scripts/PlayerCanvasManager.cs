@@ -99,7 +99,13 @@ public class PlayerCanvasManager : MonoBehaviour
         imageChilds[2].sprite = attack.categorySprite;
 
         textChilds[0].text = attack.type.ToString();
-        textChilds[1].text = attack.power.ToString();
+
+        if(attack.category == Category.STATUS){
+            textChilds[1].text = "—";
+        }
+        else{
+            textChilds[1].text = attack.power.ToString();   
+        }
         textChilds[2].text = attack.name;
         textChilds[3].text = attack.description;
 

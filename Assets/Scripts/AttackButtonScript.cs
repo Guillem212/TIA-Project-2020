@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private float timeElapsed;
-    private const int timeMaxToPress = 1;
+    private int timeMaxToPress = 1;
 
-    private bool isPressed;
+    private bool isPressed, wasPressed;
 
     public GameObject attackInformation;
     public PlayerCanvasManager canvasManager;
@@ -22,7 +22,9 @@ public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerE
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         timeElapsed = 0;
         isPressed = false;
+        wasPressed = false;
     }
+
     void Update()
     {
         if (isPressed)
@@ -35,15 +37,18 @@ public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerE
                 attackInformation.SetActive(true);
             }
         }
-        else
+        else if(wasPressed)
         {
             if(timeElapsed < timeMaxToPress)
             {
-                //Mandar el ataque seleccionado
                 player.selectedAttack = attack;
             }
+            else
+            {
+                attackInformation.SetActive(false);
+            }
             timeElapsed = 0;
-            attackInformation.SetActive(false);
+            wasPressed = false;
         }
     }
 
@@ -56,5 +61,6 @@ public class AttackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerExit(PointerEventData eventData)
     {
         isPressed = false;
+        wasPressed = true;
     }
 }

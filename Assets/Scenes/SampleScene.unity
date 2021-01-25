@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedLibrary: {fileID: 11400000, guid: 2a8c1a722554aae4d9de9715100426d3, type: 2}
-  m_MaxNumberOfMovingImages: 4
+  m_MaxNumberOfMovingImages: 1
   m_TrackedImagePrefab: {fileID: 8143305183225632235, guid: 76ba735595108224ebea461390d32cab, type: 3}
 --- !u!1 &486308312 stripped
 GameObject:
@@ -756,6 +756,46 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1400477149}
+    - target: {fileID: 746850232, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -330.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 787740956, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1689.7279
+      objectReference: {fileID: 0}
+    - target: {fileID: 787740956, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -377.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427561157, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1776.1748
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427561157, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -598.41797
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882544105, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1769.5509
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882544105, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -447.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882544105, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -69.724
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882544106, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_text
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882544106, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_fontSize
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 1990091832105432475, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
       propertyPath: voiceController
       value: 
@@ -852,6 +892,10 @@ PrefabInstance:
       propertyPath: voiceController
       value: 
       objectReference: {fileID: 1065820897}
+    - target: {fileID: 7382423875515431604, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48fcae59d80be7043922f30a7f17196c, type: 3}
 --- !u!1 &3748596195517350303 stripped
