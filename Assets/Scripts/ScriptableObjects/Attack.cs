@@ -49,4 +49,6 @@ public class Attack : ScriptableObject {
 
     public Sprite typeSprite;
     public Sprite categorySprite;
+
+    public AudioClip attackClip;
 }

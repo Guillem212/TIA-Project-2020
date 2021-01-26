@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 1400477146}
   - component: {fileID: 1400477145}
   - component: {fileID: 1400477149}
+  - component: {fileID: 1400477150}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -534,6 +535,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postprocessMaterial: {fileID: 2100000, guid: 446d383c880f15647a76ae774ad5c9c5, type: 2}
+--- !u!81 &1400477150
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400477143}
+  m_Enabled: 1
 --- !u!1 &1632696281
 GameObject:
   m_ObjectHideFlags: 0
