@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 4915705347674015308}
   - component: {fileID: 7215880646474151986}
   - component: {fileID: 7577576841416909311}
+  - component: {fileID: 3475868804447754635}
   m_Layer: 0
   m_Name: Pokemon_1_Canvas
   m_TagString: Untagged
@@ -262,6 +263,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3475868804447754635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2344632709760464147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25396fc62393ba7478a4e5026b5134bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokemon: {fileID: 0}
+  panel: {fileID: 6185057667512729310}
+  pokemonImage: {fileID: 5931482795596177852}
+  PokemonName: {fileID: 4439501231935532011}
+  imageType: {fileID: 3982418475155195371}
+  userName: {fileID: 4311943575910346088}
 --- !u!1 &3982418475155195371
 GameObject:
   m_ObjectHideFlags: 0

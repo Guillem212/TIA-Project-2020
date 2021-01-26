@@ -107,10 +107,9 @@ public class TurnManagerRequest : MonoBehaviourPun
         {
             GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp -= damageReceived;
             if(GameManager.instance.player_id == 0) 
-                GameObject.Find("Pokemon_1_Canvas").GetComponentInChildren<Slider>().value = GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp;
+                GameObject.Find("Pokemon_1_Canvas").GetComponentInChildren<Slider>().value = Mathf.Lerp(0, 1, GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp);
             else 
-                GameObject.Find("Pokemon_2_Canvas").GetComponentInChildren<Slider>().value = GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp;
-
+                GameObject.Find("Pokemon_2_Canvas").GetComponentInChildren<Slider>().value = Mathf.Lerp(0, 1, GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp);
             if(GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp <= 0)
             {
                 TheresAWinner = true;
@@ -121,12 +120,12 @@ public class TurnManagerRequest : MonoBehaviourPun
         {
             GameManager.instance.player.GetComponent<Player>().activePokemon.hp -= damageReceived;
             if(GameManager.instance.player_id == 0) 
-                GameObject.Find("Pokemon_1_Canvas").GetComponentInChildren<Slider>().value = GameManager.instance.player.GetComponent<Player>().activePokemon.hp;
+                GameObject.Find("Pokemon_1_Canvas").GetComponentInChildren<Slider>().value = Mathf.Lerp(0, 1, GameManager.instance.player.GetComponent<Player>().activePokemon.hp);
             else 
-                GameObject.Find("Pokemon_2_Canvas").GetComponentInChildren<Slider>().value = GameManager.instance.player.GetComponent<Player>().activePokemon.hp;
+                GameObject.Find("Pokemon_2_Canvas").GetComponentInChildren<Slider>().value = Mathf.Lerp(0, 1, GameManager.instance.player.GetComponent<Player>().activePokemon.hp);
             attackedPokemon = GameManager.instance.player.GetComponent<Player>().activePokemon.name;
         }
-        GameManager.instance.RefresUIAttacksResult(attackedPokemon, effective, TheresAWinner);
+        GameManager.instance.RefresUIAttacksResult(attackedPokemon, effective, TheresAWinner, player_id);
     }
 
     [PunRPC]
@@ -362,6 +361,7 @@ public class TurnManagerRequest : MonoBehaviourPun
         
         DEBUGSTRING += $"\n Estoy dentro de la corrutina de PLAYER{request.m_Attacker.player_id}, con indice {x}";
         if(x == 1) yield return new WaitUntil(() => IsLastRequestFinished);
+        yield return new WaitForSeconds(3f);
         GameManager.instance.view.RPC("RefreshUIAttacksStart", RpcTarget.All, request.m_Attack.category, request.m_Attacker.name, request.m_Attack.name, request.m_Attack.statusModified.ToString());
 
         yield return new WaitForSeconds(2f);
@@ -386,14 +386,17 @@ public class TurnManagerRequest : MonoBehaviourPun
         if(x == 1)
         {
             yield return new WaitForSeconds(2f);
-            GameManager.instance.AttackTurn();
-            requests.Clear();
+            if(GameManager.instance.player.GetComponent<Player>().activePokemon.hp <= 0 || GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp <= 0)
+            {
+                
+            }
+            else
+            {
+                GameManager.instance.AttackTurn();
+                requests.Clear();
+            }
+
         } 
     }
     #endregion
-
-    private void OnGUI() {
-        Rect r = new Rect(Vector2.one * 300, Vector2.one * 200);
-        GUI.TextArea(r, DEBUGSTRING);
-    }
 }

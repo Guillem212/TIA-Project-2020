@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
-using UnityEngine.XR.Management;
+
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -126,12 +126,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void theWinnerIs(int playerID){
         string message = "";
-        if(player_id == playerID) message = "VICTORY!";
+        if(player_id != playerID) message = "VICTORY!";
         else message = "DEFEAT...";
 
         information_Panel.SetActive(true);
         ImageCard_Panel.SetActive(false);
         information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = message;
+        StartCoroutine(LoadEmptyScene());
     }
     
     #endregion
@@ -147,9 +148,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        PhotonNetwork.Disconnect();
+        //PhotonNetwork.Disconnect();
         AudioManager.instance.PlayMusic(0);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
+        UnityEngine.XR.ARFoundation.ARSession.Destroy(FindObjectOfType<UnityEngine.XR.ARFoundation.ARSession>());
     }
 
     #endregion
@@ -181,10 +183,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         TurnManagerRequest.instance.StartAttacks(); 
     }
 
-    IEnumerator TheresAWinnerCoroutine()
+    IEnumerator TheresAWinnerCoroutine(int playerID)
     {
         yield return new WaitForSeconds(2f);
-        TurnManagerRequest.instance.StartAttacks(); 
+        view.RPC("theWinnerIs", RpcTarget.All, playerID);
+    }
+
+    IEnumerator LoadEmptyScene()
+    {
+        yield return new WaitForSeconds(2f);
+        ph_LeaveRoom();
     }
     #endregion
 
@@ -196,7 +204,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    public void RefresUIAttacksResult(string pokemonAttacked, float effective, bool TheresAWinner)
+    public void RefresUIAttacksResult(string pokemonAttacked, float effective, bool TheresAWinner, int playerID)
     {
         information_Panel.SetActive(true);
         ImageCard_Panel.SetActive(false);
@@ -219,7 +227,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Debug.Log("It's effective.");
                 break;
         }
-        StartCoroutine(TheresAWinnerCoroutine());
+        if(TheresAWinner) StartCoroutine(TheresAWinnerCoroutine(playerID));
     }
 
     #endregion
@@ -248,6 +256,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             item.gameObject.SetActive(false);   
         }
+
+        /*GameObject stadium = GameObject.Find("Stadium");
+
+        GameObject auxCombatCanvas1 = stadium.transform.Find("Pokemon_2_Canvas").gameObject;
+        GameObject auxCombatCanvas2 = stadium.transform.Find("Pokemon_1_Canvas").gameObject;
+
+        auxCombatCanvas1.GetComponent<UpdateCombatCanvasInformation>().StartHacerCosas();
+        auxCombatCanvas2.GetComponent<UpdateCombatCanvasInformation>().StartHacerCosas();
+        */
+
         canvas.GetComponent<PlayerCanvasManager>().UpdateAttacks();
 
         InitializeTimer(ph_timerChooseAttack);

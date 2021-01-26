@@ -21,6 +21,12 @@ namespace PhotonTutorial.Menus
         private const int MaxPlayersPerRoom = 2;
 
         private void Awake() => PhotonNetwork.AutomaticallySyncScene = true;
+
+        private void Start() {
+            isJoiningRandomRoom = false;
+            isCreatingRoom = false;
+            isJoiningRoomByName = false;
+        }
         public void FindRandomOpponent()
         {
             isJoiningRandomRoom = true;

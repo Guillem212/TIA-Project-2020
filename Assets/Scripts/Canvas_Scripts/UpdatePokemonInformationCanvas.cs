@@ -27,7 +27,7 @@ public class UpdatePokemonInformationCanvas : MonoBehaviour
         //Con el nombre del pokemon padre coger de recursos el scriptable object del pokemon
         string father = GetComponentInParent<BoxCollider>().gameObject.name;
 
-        Pokemon[] pokemons = Resources.LoadAll<Pokemon>("Resources/Pokemons");
+        Pokemon[] pokemons = GameManager.instance.player.GetComponent<Player>().pokemons;
 
         Pokemon SelectedPokemon = new Pokemon();
 
