@@ -24,3 +24,4 @@ MonoBehaviour:
   objective: 1
   typeSprite: {fileID: 21300000, guid: 1e619ade1f5e72e4abe66be06e0466ac, type: 3}
   categorySprite: {fileID: 21300000, guid: 327a69047858c884d9b799060cadd645, type: 3}
+  attackClip: {fileID: 8300000, guid: d6fa0eb76a108b14ea1e799718823212, type: 3}
