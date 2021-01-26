@@ -388,6 +388,7 @@ MonoBehaviour:
   pokemons: []
   activePokemon: {fileID: 0}
   selectedAttack: {fileID: 0}
+  voiceController: {fileID: 0}
   view: {fileID: 0}
 --- !u!114 &1065820897
 MonoBehaviour:
