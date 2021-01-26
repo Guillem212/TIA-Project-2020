@@ -55,6 +55,7 @@ public class TurnManagerRequest : MonoBehaviourPun
         newRequest.m_Attack = attack;
         newRequest.m_Attacker = attacker;
         newRequest.m_Defender = defender;
+        newRequest.m_IsFinished = false;
 
         requests.Add(newRequest.m_Attacker.velocity + attack.priority, newRequest);
     }
@@ -203,6 +204,13 @@ public class TurnManagerRequest : MonoBehaviourPun
         }
 
         return 1f;
+    }
+    #endregion
+
+    #region COROUTINES
+    IEnumerator StartAttack(Request a)
+    {
+        if(requests.IndexOfValue(a) == 1) yield return new WaitUntil(() => requests[0].m_IsFinished);
     }
     #endregion
 }

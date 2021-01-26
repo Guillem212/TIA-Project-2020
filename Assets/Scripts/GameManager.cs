@@ -57,12 +57,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-       if(Input.GetKeyDown(KeyCode.X))
+       if(Input.GetKeyDown(KeyCode.X)) //DEBUG
        {
            view.RPC("PlayerActivateStadium", Photon.Pun.RpcTarget.All);
        }
     }
-    #region RPC Functions
+    #region RPC FUNCTIONS
 
     [PunRPC]
     public void PassTurn(){
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     #endregion
 
-    #region PUN Callbacks
+    #region PUN CALLBACKS
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         _ShowAndroidToastMessage("Opponent trainer left the Match");
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     #endregion
 
-    #region Coroutines
+    #region COROUTINES
     IEnumerator Timer()
     {
         while(ph_currentTime >= 0)
