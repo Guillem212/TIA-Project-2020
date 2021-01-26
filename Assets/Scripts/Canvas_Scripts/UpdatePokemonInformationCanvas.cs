@@ -6,7 +6,6 @@ using TMPro;
 
 public class UpdatePokemonInformationCanvas : MonoBehaviour
 {
-    private Player player;
     public GameObject pokemonName,
     type,
     hp,
@@ -26,29 +25,38 @@ public class UpdatePokemonInformationCanvas : MonoBehaviour
     private void OnEnable() {
 
         //Con el nombre del pokemon padre coger de recursos el scriptable object del pokemon
-        player = FindObjectOfType<Player>();
+        string father = GetComponentInParent<BoxCollider>().gameObject.name;
+
+        Pokemon[] pokemons = Resources.LoadAll<Pokemon>("Resources/Pokemons");
+
+        Pokemon SelectedPokemon = new Pokemon();
+
+        foreach (var item in pokemons)
+        {
+            if(item.name.Equals(father)){
+                SelectedPokemon = item;
+                break;
+            }
+        }
 
         cam = Camera.main;
 
         GetComponent<Canvas>().worldCamera = cam;
         
-        if(player.activePokemon is null)
-            return;
-        
-        panel.color = player.activePokemon.typeColor;
-        pokemonName.GetComponent<TextMeshProUGUI>().text = player.activePokemon.name;
-        type.GetComponent<Image>().sprite = player.activePokemon.typeSprite;
-        hp.GetComponent<TextMeshProUGUI>().text = "HP - " + player.activePokemon.hp;
-        attack.GetComponent<TextMeshProUGUI>().text = "ATTACK - " + player.activePokemon.attack;
-        specialAttack.GetComponent<TextMeshProUGUI>().text = "SPECIAL ATTACK - " + player.activePokemon.specialAttack;
-        defense.GetComponent<TextMeshProUGUI>().text = "DEFENSE - " + player.activePokemon.defense;
-        specialDefense.GetComponent<TextMeshProUGUI>().text = "SPECIAL DEFENSE - " + player.activePokemon.specialDefense;
-        velocity.GetComponent<TextMeshProUGUI>().text = "VELOCITY - " + player.activePokemon.velocity;
+        panel.color = SelectedPokemon.typeColor;
+        pokemonName.GetComponent<TextMeshProUGUI>().text = SelectedPokemon.name;
+        type.GetComponent<Image>().sprite = SelectedPokemon.typeSprite;
+        hp.GetComponent<TextMeshProUGUI>().text = "HP - " + SelectedPokemon.hp;
+        attack.GetComponent<TextMeshProUGUI>().text = "ATTACK - " + SelectedPokemon.attack;
+        specialAttack.GetComponent<TextMeshProUGUI>().text = "SPECIAL ATTACK - " + SelectedPokemon.specialAttack;
+        defense.GetComponent<TextMeshProUGUI>().text = "DEFENSE - " + SelectedPokemon.defense;
+        specialDefense.GetComponent<TextMeshProUGUI>().text = "SPECIAL DEFENSE - " + SelectedPokemon.specialDefense;
+        velocity.GetComponent<TextMeshProUGUI>().text = "VELOCITY - " + SelectedPokemon.velocity;
 
         for (int i = 0; i < attacksImage.Length; i++)
         {
-            attacksImage[i].sprite = player.activePokemon.m_attacks[i].typeSprite;
-            attacksName[i].text = player.activePokemon.m_attacks[i].name;
+            attacksImage[i].sprite = SelectedPokemon.m_attacks[i].typeSprite;
+            attacksName[i].text = SelectedPokemon.m_attacks[i].name;
         }
     }
 
