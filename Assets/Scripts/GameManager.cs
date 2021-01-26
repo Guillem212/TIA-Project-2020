@@ -8,20 +8,18 @@ using UnityEngine.XR.Management;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     #region Private Variables
-
-    [SerializeField] private GameObject player; 
     [SerializeField] private GameObject information_Panel; 
     [SerializeField] private GameObject ImageCard_Panel; 
     [SerializeField] private int ph_timerChoosePokemon;
     [SerializeField] private int ph_timerChooseAttack;
-
-    public int ph_currentTime;
+    private int ph_currentTime;
     private Coroutine h_TimerCoroutine;
     #endregion
 
     #region Public Variables
-    [HideInInspector] public PhotonView view = null;
     public static GameManager instance;
+    public GameObject player; 
+    [HideInInspector] public PhotonView view = null;
     [HideInInspector] public int player_id;
     public int turn;
     public int ph_playersWithStadiumActive;
@@ -62,12 +60,14 @@ public class GameManager : MonoBehaviourPunCallbacks
            view.RPC("PlayerActivateStadium", Photon.Pun.RpcTarget.All);
        }
     }
+
     #region RPC FUNCTIONS
 
     [PunRPC]
     public void PassTurn(){
         if(turn == 1)
         {
+            if(player.GetComponent<Player>().activePokemon is null) player.GetComponent<Player>().activePokemon = player.GetComponent<Player>().pokemons[Random.Range(0, player.GetComponent<Player>().pokemons.Length)];
             AttackTurn();
         }
         else //Ha muerto un pokemon y hay que volver a elegir (VUELVE EL TURNO 1)
@@ -89,6 +89,47 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         information_Panel.SetActive(timeLeft >-1);
         information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = timeLeft.ToString();
+    }
+
+    [PunRPC]
+    public void RefreshUIAttacksStart(Category category, string pokemonName, string attackName, string statusModified){
+        information_Panel.SetActive(true);
+        ImageCard_Panel.SetActive(false);
+        //DEBUG
+        switch (category)
+        {
+            case Category.PHYSICAL:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = pokemonName + " use " + attackName + ".";
+                Debug.Log(pokemonName + " use " + attackName+ ".");
+                break;
+            case Category.SPECIAL:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = pokemonName + " use " + attackName + ".";
+                Debug.Log(pokemonName + " use " + attackName + ".");
+                break;
+            default:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = pokemonName + " has improved his " + statusModified + " using " + attackName + ".";
+                Debug.Log(pokemonName + " has improved his " + statusModified + " using " + attackName + ".");
+                break;
+        }
+    }
+
+    [PunRPC]
+    public void PassAttackToHost(){
+        player.GetComponent<Player>().Attack(player.GetComponent<Player>().selectedAttack); 
+        TurnManagerRequest.instance.StartAttacks();                                             //POSIBLE FALLO
+        GameObject canvas = GameObject.Find("Player_Canvas");
+        canvas.transform.Find("Attack_Panel").gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    public void theWinnerIs(int playerID){
+        string message = "";
+        if(player_id == playerID) message = "VICTORY!";
+        else message = "DEFEAT...";
+
+        information_Panel.SetActive(true);
+        ImageCard_Panel.SetActive(false);
+        information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = message;
     }
     
     #endregion
@@ -120,15 +161,18 @@ public class GameManager : MonoBehaviourPunCallbacks
             view.RPC("RefreshTimer_UI", RpcTarget.All, ph_currentTime);
         }
         h_TimerCoroutine = null;
-        if(turn == 1)GameManager.instance.view.RPC("PassTurn", RpcTarget.All);
-        else PassAttackToHost();
+        if(turn == 1) GameManager.instance.view.RPC("PassTurn", RpcTarget.All);
+        else view.RPC("PassAttackToHost", RpcTarget.All);
+    }
+
+    IEnumerator nextAttackTurn()
+    {
+        yield return new WaitForSeconds(2f);
+        AttackTurn();
     }
     #endregion
 
     #region PUBLIC METHODS
-    public void PassAttackToHost(){
-        //player.GetComponent<Player>().Attack(player.GetComponent<Player>().selectedAttack);
-    }
     public void ph_LeaveRoom()
     {
         PhotonNetwork.AutomaticallySyncScene = false;
@@ -136,26 +180,32 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    public void RefreshUIAttacks(Request request){
+    public void RefresUIAttacksResult(string pokemonAttacked, float effective)
+    {
         information_Panel.SetActive(true);
         ImageCard_Panel.SetActive(false);
-        //DEBUG
-        switch (request.m_Attack.category)
+        switch (effective)
         {
-            case Category.PHYSICAL:
-                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = request.m_Attacker.name + " use " + ".";
-                Debug.Log(request.m_Attacker.name + " use " + ".");
+            case 0:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = "It doesn't affect " + pokemonAttacked + ".";
+                Debug.Log("It doesn't affect " + pokemonAttacked + ".");
                 break;
-            case Category.SPECIAL:
-                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = request.m_Attacker.name + " use " + ".";
-                Debug.Log(request.m_Attacker.name + " use " + ".");
+            case 0.5f:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = "It's not very effective...";
+                Debug.Log("It's not very effective...");
+                break;
+            case 2:
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = "It's super effective!";
+                Debug.Log("It's super effective!");
                 break;
             default:
-                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = request.m_Attacker.name + " has improved his " + request.m_Attack.statusModified + " using " + request.m_Attack.name + ".";
-                Debug.Log(request.m_Attacker.name + " has improved his " + request.m_Attack.statusModified + " using " + request.m_Attack.name + ".");
+                information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = "It's effective.";
+                Debug.Log("It's effective.");
                 break;
         }
+        StartCoroutine(nextAttackTurn());
     }
+
     #endregion
 
     #region PRIVATE METHODS

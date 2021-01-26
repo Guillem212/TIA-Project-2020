@@ -17,6 +17,7 @@ public class Pokemon : ScriptableObject
     public int defense;
     public int specialDefense;
     public int velocity;
+    public int player_id;
 
     //Set Of Attacks
     public Attack[] m_attacks;

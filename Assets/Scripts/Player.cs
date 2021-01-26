@@ -5,10 +5,14 @@ using Photon.Pun;
 public class Player : MonoBehaviourPun
 {
     [HideInInspector]public Pokemon[] pokemons;
+    [HideInInspector]public PokStruct[] pokemonsStruct;
+
 
     public Pokemon activePokemon;
+    public PokStruct s_activePokemon;
     public Attack selectedAttack = null;
-    private Pokemon ObjectiveActivePokemon;
+    public Pokemon ObjectiveActivePokemon;
+    public PokStruct s_ObjectiveActivePokemon;
 
     private GameObject pokemonModel;
     //private GameObject pokemonModel_2;
@@ -24,7 +28,7 @@ public class Player : MonoBehaviourPun
         view = PhotonView.Get(this);
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if(voiceController.speech != "")
         {
@@ -33,6 +37,7 @@ public class Player : MonoBehaviourPun
                     activePokemon = GetPokemonInVoiceCommand();
                     if(activePokemon != null)
                     {
+                        activePokemon.player_id = GameManager.instance.player_id;
                         view.RPC("ClearPokemon", RpcTarget.All, GameManager.instance.player_id);
                         view.RPC("ActivatePokemon", RpcTarget.All, GameManager.instance.player_id, activePokemon.name);
                     }
@@ -49,6 +54,17 @@ public class Player : MonoBehaviourPun
         }
     }
 
+    private void generateArrayListStruct(Pokemon[] pokemonsObjects)
+    {
+        List<PokStruct> aux = new List<PokStruct>();
+        foreach(Pokemon p in pokemonsObjects)
+        {
+            PokStruct poke = new PokStruct(p.name, p.hp, p.attack, p.specialAttack, p.defense, p.specialDefense, p.velocity);
+            aux.Add(poke);
+        }
+        pokemonsStruct = aux.ToArray();
+    }
+
     /// <summary>
     /// Get the pokemon selected through voice command
     /// </summary>
@@ -60,6 +76,7 @@ public class Player : MonoBehaviourPun
             if (VoiceController.instance.speech.Contains(p.name))
             {
                 print(p.name);
+                s_activePokemon = new PokStruct(p.name, p.hp, p.attack, p.specialAttack, p.defense, p.specialDefense, p.velocity);
                 return p;
             }
         }
@@ -78,8 +95,6 @@ public class Player : MonoBehaviourPun
         {
             string attackName = a.name;
             string speechAux = VoiceController.instance.speech;
-            //attackName.ToLower();
-            //speechAux.ToLower();
             if (speechAux.ToLower().Contains(attackName.ToLower()))
                 return a;
         }
@@ -94,13 +109,27 @@ public class Player : MonoBehaviourPun
     private void ActivatePokemon(int player_id, string pokemonCalled)
     {
         GameObject[] pokContainer = GameObject.Find(player_id == 0 ? "Pokemon_1" : "Pokemon_2").GetComponent<PokemonContainerScript>().pokemons;
-        
+        TurnManagerRequest.instance.view.RPC("DebugTest", RpcTarget.All, pokContainer != null);
+
         foreach (var p in pokContainer)
         {
             if(p.name == pokemonCalled)
             {
                 p.SetActive(true);
                 if(player_id == GameManager.instance.player_id) pokemonModel = p;
+                else
+                {
+                    foreach(var pok in pokemons)
+                    {
+                        if(pok.name.Equals(p.name)) 
+                        {
+                            ObjectiveActivePokemon = pok;
+                            ObjectiveActivePokemon.player_id = GameManager.instance.player_id == 0? 1 : 0;
+                            s_ObjectiveActivePokemon = new PokStruct(pok.name, pok.hp, pok.attack, pok.specialAttack, pok.defense, pok.specialDefense, pok.velocity);
+                            break;
+                        }
+                    }   
+                }
                 break;
             }
         }
@@ -110,6 +139,7 @@ public class Player : MonoBehaviourPun
     private void ClearPokemon(int player_id)
     {
         GameObject[] pokContainer = GameObject.Find(player_id == 0 ? "Pokemon_1" : "Pokemon_2").GetComponent<PokemonContainerScript>().pokemons;
+        //TurnManagerRequest.instance.view.RPC("DebugTest", RpcTarget.All, pokContainer != null);
 
         foreach (var p in pokContainer)
         {
@@ -126,27 +156,17 @@ public class Player : MonoBehaviourPun
     /// <param name="attacking">The pokemon that is attacking.</param>
     public void Attack(Attack attack)
     {
+        if(attack is null)
+        {
+            attack = activePokemon.m_attacks[Random.Range(0, activePokemon.m_attacks.Length)];
+        }
         switch (attack.objective)
         {
             case Objective.USER:
-                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.All, activePokemon, activePokemon, attack);
+                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.MasterClient, activePokemon.player_id, activePokemon.player_id, attack.name);
                 break;
             default:
-                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.All, activePokemon, ObjectiveActivePokemon, attack);
-                break;
-        }
-
-        //DEBUG
-        switch (attack.category)
-        {
-            case Category.PHYSICAL:
-                Debug.Log(activePokemon.name + " use " + ".");
-                break;
-            case Category.SPECIAL:
-                Debug.Log(activePokemon.name + " use " + ".");
-                break;
-            default:
-                Debug.Log(activePokemon.name + " has improved his " + attack.statusModified + " using " + attack.name + ".");
+                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.MasterClient, activePokemon.player_id, ObjectiveActivePokemon.player_id, attack.name);
                 break;
         }
     }

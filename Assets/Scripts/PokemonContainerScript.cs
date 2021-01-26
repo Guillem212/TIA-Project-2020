@@ -10,7 +10,7 @@ public class PokemonContainerScript : MonoBehaviour
     {
         if(pokemons is null)
         {
-            Transform[] t = GetComponentsInChildren<Transform>();
+            BoxCollider[] t = GetComponentsInChildren<BoxCollider>();
             pokemons = new GameObject[t.Length];
             for (int i = 0; i < t.Length; i++)
             {
