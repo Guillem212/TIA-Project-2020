@@ -78,8 +78,6 @@ public class Player : MonoBehaviourPun
         {
             string attackName = a.name;
             string speechAux = VoiceController.instance.speech;
-            //attackName.ToLower();
-            //speechAux.ToLower();
             if (speechAux.ToLower().Contains(attackName.ToLower()))
                 return a;
         }

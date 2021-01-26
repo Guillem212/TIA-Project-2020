@@ -51,7 +51,7 @@ public class UpdatePokemonInformationCanvas : MonoBehaviour
     }
 
     private void LateUpdate() {
-        transform.LookAt(cam.transform.position, transform.up);
+        transform.LookAt(cam.transform.position, Vector2.up);
     }
 
 }

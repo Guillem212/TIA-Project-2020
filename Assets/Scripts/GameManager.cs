@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         else player_id = 1;
         ph_playersWithStadiumActive = 0;
         turn = 0;
+        AudioManager.instance.PlayMusic(1);
     }
 
     // Update is called once per frame
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(turn == 1)
         {
             AttackTurn();
+            AudioManager.instance.PlayMusic(2);
         }
         else //Ha muerto un pokemon y hay que volver a elegir (VUELVE EL TURNO 1)
         {  
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         PhotonNetwork.Disconnect();
+        AudioManager.instance.PlayMusic(0);
         SceneManager.LoadScene(0);
     }
 
