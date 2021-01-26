@@ -3,16 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+public class InvertedComparer : IComparer<int>
+{
+    public int Compare(int x, int y)
+    {
+        return y.CompareTo(x);
+    }
+}
+
 public class TurnManagerRequest : MonoBehaviourPun
 {
     #region Private Variables
     /// <summary>
     /// List sorted by the velocity of the attacker.
     /// </summary>
-    private SortedList<int, Request> requests;
+    public SortedList<int, Request> requests;
     private Types_Matrix types;
 
     private bool IsLastRequestFinished; 
+    private int DEBUG = -1;
+    private bool DEBUGBOOL=false;
+
+    private string DEBUGSTRING = "";
+
 
     #endregion
 
@@ -26,19 +39,20 @@ public class TurnManagerRequest : MonoBehaviourPun
         if (instance == null)
         {
             instance = this;
+
+            requests = new SortedList<int, Request>(new InvertedComparer());
         }
         else
         {
             Destroy(instance);
         }
-
-        requests = new SortedList<int, Request>();
     }
 
     private void Start()
     {
         types = new Types_Matrix();
         view = PhotonView.Get(this);
+        DEBUGSTRING = "";
     }
 
     #region RPC FUNCTIONS
@@ -52,10 +66,11 @@ public class TurnManagerRequest : MonoBehaviourPun
     [PunRPC]
     public void RequestAttack(int attacker, int defender, string attack_name)
     {
-        //if(!PhotonNetwork.IsMasterClient) return;
+        if(!PhotonNetwork.IsMasterClient) return;
         Pokemon aux1 = GameManager.instance.player_id == attacker? GameManager.instance.player.GetComponent<Player>().activePokemon : GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon; //The attacker
         Pokemon aux2 = GameManager.instance.player_id != attacker? GameManager.instance.player.GetComponent<Player>().activePokemon : GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon; //The enemy of the attacker
         
+        Debug.Log(aux1 is null);
         Request newRequest = new Request();
         newRequest.m_Attacker = aux1;
         newRequest.m_Defender = attacker == defender? aux1 : aux2;
@@ -68,8 +83,13 @@ public class TurnManagerRequest : MonoBehaviourPun
                 break;
             }
         }
-
-        requests.Add(newRequest.m_Attacker.velocity + newRequest.m_Attack.priority, newRequest);
+        DEBUGSTRING += $"PLAYER{attacker} HACE UNA REQUEST CON {newRequest.m_Attacker.name} A {newRequest.m_Defender.name} USANDO {newRequest.m_Attack.name}" ;
+        //GameManager.instance.information_Panel.SetActive(true);
+        //GameManager.instance.information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = DEBUGSTRING;
+        int Priority = aux1.velocity + newRequest.m_Attack.priority;
+        if(requests.ContainsKey(Priority)) Priority--;
+        requests.Add(Priority, newRequest);
+        DEBUGSTRING += " Capacidad de la lista: " +  requests.Count;
     }
 
 /// <summary>
@@ -228,9 +248,14 @@ public class TurnManagerRequest : MonoBehaviourPun
     {
         if(!PhotonNetwork.IsMasterClient) return;
         IsLastRequestFinished = false;
-        foreach (var request in requests)
+        DEBUGSTRING += $"ENTRO A START ATTACKS, HAY {requests.Count} EN LA LISTA";
+        int cont = 0;
+
+        foreach (var item in requests)
         {
-            StartCoroutine(StartAttackCoroutine(request.Value));
+            DEBUGSTRING += $"\n Llamo a la {cont} corutina con la request de {item.Value.m_Attacker.player_id}";
+            StartCoroutine(StartAttackCoroutine(item.Value, cont)); 
+            cont++;
         }
     }
     #endregion
@@ -318,9 +343,11 @@ public class TurnManagerRequest : MonoBehaviourPun
     #endregion
 
     #region COROUTINES
-    IEnumerator StartAttackCoroutine(Request request)
+    IEnumerator StartAttackCoroutine(Request request, int x)
     {
-        if(requests.IndexOfValue(request) == 1) yield return new WaitUntil(() => IsLastRequestFinished);
+        
+        DEBUGSTRING += $"\n Estoy dentro de la corrutina de PLAYER{request.m_Attacker.player_id}, con indice {x}";
+        if(x == 1) yield return new WaitUntil(() => IsLastRequestFinished);
         GameManager.instance.view.RPC("RefreshUIAttacksStart", RpcTarget.All, request.m_Attack.category, request.m_Attacker.name, request.m_Attack.name, request.m_Attack.statusModified.ToString());
 
         yield return new WaitForSeconds(2f);
@@ -340,7 +367,19 @@ public class TurnManagerRequest : MonoBehaviourPun
                     break;
         }
         IsLastRequestFinished = true;
+        DEBUGSTRING += $"\n He acabado mi corrutina";
 
+        if(x == 1)
+        {
+            yield return new WaitForSeconds(2f);
+            GameManager.instance.AttackTurn();
+            requests.Clear();
+        } 
     }
     #endregion
+
+    private void OnGUI() {
+        Rect r = new Rect(Vector2.one * 300, Vector2.one * 200);
+        GUI.TextArea(r, DEBUGSTRING);
+    }
 }

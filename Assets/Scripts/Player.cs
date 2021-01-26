@@ -163,10 +163,10 @@ public class Player : MonoBehaviourPun
         switch (attack.objective)
         {
             case Objective.USER:
-                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.MasterClient, activePokemon.player_id, activePokemon.player_id, attack.name);
+                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.All, GameManager.instance.player_id, GameManager.instance.player_id, attack.name);
                 break;
             default:
-                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.MasterClient, activePokemon.player_id, ObjectiveActivePokemon.player_id, attack.name);
+                TurnManagerRequest.instance.view.RPC("RequestAttack", RpcTarget.All, GameManager.instance.player_id, GameManager.instance.player_id == 0? 1 : 0, attack.name);
                 break;
         }
     }

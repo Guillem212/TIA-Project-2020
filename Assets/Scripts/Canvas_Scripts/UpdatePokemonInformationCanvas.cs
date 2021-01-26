@@ -24,12 +24,14 @@ public class UpdatePokemonInformationCanvas : MonoBehaviour
     private Camera cam;
 
     private void OnEnable() {
+
+        //Con el nombre del pokemon padre coger de recursos el scriptable object del pokemon
         player = FindObjectOfType<Player>();
 
         cam = Camera.main;
 
         GetComponent<Canvas>().worldCamera = cam;
-
+        
         if(player.activePokemon is null)
             return;
         

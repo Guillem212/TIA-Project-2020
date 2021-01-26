@@ -388,6 +388,7 @@ MonoBehaviour:
   pokemons: []
   activePokemon: {fileID: 0}
   selectedAttack: {fileID: 0}
+  ObjectiveActivePokemon: {fileID: 0}
   voiceController: {fileID: 0}
   view: {fileID: 0}
 --- !u!114 &1065820897
@@ -684,12 +685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef7125faa5854f40b202c40f0210433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1065820893}
   information_Panel: {fileID: 486308312}
   ImageCard_Panel: {fileID: 3748596195517350303}
-  ph_timerChoosePokemon: 5
-  ph_timerChooseAttack: 15
-  ph_currentTime: 0
+  ph_timerChoosePokemon: 16
+  ph_timerChooseAttack: 8
+  player: {fileID: 1065820893}
   view: {fileID: 0}
   player_id: 0
   turn: 1

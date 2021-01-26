@@ -8,7 +8,7 @@ using UnityEngine.XR.Management;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     #region Private Variables
-    [SerializeField] private GameObject information_Panel; 
+    public GameObject information_Panel; 
     [SerializeField] private GameObject ImageCard_Panel; 
     [SerializeField] private int ph_timerChoosePokemon;
     [SerializeField] private int ph_timerChooseAttack;
@@ -117,10 +117,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [PunRPC]
     public void PassAttackToHost(){
-        player.GetComponent<Player>().Attack(player.GetComponent<Player>().selectedAttack); 
-        TurnManagerRequest.instance.StartAttacks();                                             //POSIBLE FALLO
+        player.GetComponent<Player>().Attack(player.GetComponent<Player>().selectedAttack);     
         GameObject canvas = GameObject.Find("Player_Canvas");
-        canvas.transform.Find("Attack_Panel").gameObject.SetActive(false);
+        //canvas.transform.Find("Attack_Panel").gameObject.SetActive(false);
+        if(PhotonNetwork.IsMasterClient) StartCoroutine(StartAttacksCoroutine());
     }
 
     [PunRPC]
@@ -173,6 +173,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(2f);
         AttackTurn();
     }
+
+    IEnumerator StartAttacksCoroutine()
+    {
+        information_Panel.SetActive(true);
+        ImageCard_Panel.SetActive(false);
+        information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = "Esperando requests...";
+        yield return new WaitForSeconds(3f);
+        information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = "Recibidas 2 Request, Llamando a Start Attacks...";
+        TurnManagerRequest.instance.StartAttacks(); 
+    }
     #endregion
 
     #region PUBLIC METHODS
@@ -206,7 +216,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Debug.Log("It's effective.");
                 break;
         }
-        StartCoroutine(nextAttackTurn());
+        //StartCoroutine(nextAttackTurn());
     }
 
     #endregion
@@ -225,11 +235,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
-    private void AttackTurn(){
+    public void AttackTurn(){
         turn = 2;
         GameObject canvas = GameObject.Find("Player_Canvas");
         canvas.transform.Find("Attack_Panel").gameObject.SetActive(true);
         canvas.transform.Find("Select_Pokemon_Panel").gameObject.SetActive(false);
+        UpdatePokemonInformationCanvas[] auxPCanvas = FindObjectsOfType<UpdatePokemonInformationCanvas>();
+        foreach (var item in auxPCanvas)
+        {
+            item.gameObject.SetActive(false);   
+        }
         canvas.GetComponent<PlayerCanvasManager>().UpdateAttacks();
 
         InitializeTimer(ph_timerChooseAttack);
