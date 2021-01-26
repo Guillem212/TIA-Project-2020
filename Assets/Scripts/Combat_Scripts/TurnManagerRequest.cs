@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class InvertedComparer : IComparer<int>
@@ -101,18 +102,31 @@ public class TurnManagerRequest : MonoBehaviourPun
     [PunRPC]
     public void SendAttackResult(int player_id, int damageReceived, float effective){ 
         string attackedPokemon = "";
+        bool TheresAWinner = false;
         if(player_id == GameManager.instance.player_id)
         {
             GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp -= damageReceived;
-            if(GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp <= 0) GameManager.instance.view.RPC("theWinnerIs", RpcTarget.All, player_id);
+            if(GameManager.instance.player_id == 0) 
+                GameObject.Find("Pokemon_1_Canvas").GetComponentInChildren<Slider>().value = GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp;
+            else 
+                GameObject.Find("Pokemon_2_Canvas").GetComponentInChildren<Slider>().value = GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp;
+
+            if(GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp <= 0)
+            {
+                TheresAWinner = true;
+            }
             attackedPokemon = GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.name;
         }
         else
         {
             GameManager.instance.player.GetComponent<Player>().activePokemon.hp -= damageReceived;
+            if(GameManager.instance.player_id == 0) 
+                GameObject.Find("Pokemon_1_Canvas").GetComponentInChildren<Slider>().value = GameManager.instance.player.GetComponent<Player>().activePokemon.hp;
+            else 
+                GameObject.Find("Pokemon_2_Canvas").GetComponentInChildren<Slider>().value = GameManager.instance.player.GetComponent<Player>().activePokemon.hp;
             attackedPokemon = GameManager.instance.player.GetComponent<Player>().activePokemon.name;
         }
-        GameManager.instance.RefresUIAttacksResult(attackedPokemon, effective);
+        GameManager.instance.RefresUIAttacksResult(attackedPokemon, effective, TheresAWinner);
     }
 
     [PunRPC]

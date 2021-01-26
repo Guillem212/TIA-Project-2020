@@ -176,11 +176,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     IEnumerator StartAttacksCoroutine()
     {
-        information_Panel.SetActive(true);
-        ImageCard_Panel.SetActive(false);
-        information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = "Esperando requests...";
-        yield return new WaitForSeconds(3f);
-        information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = "Recibidas 2 Request, Llamando a Start Attacks...";
+        yield return new WaitUntil(()=> TurnManagerRequest.instance.requests.Count > 1);
+        yield return new WaitForSeconds(2f);
+        TurnManagerRequest.instance.StartAttacks(); 
+    }
+
+    IEnumerator TheresAWinnerCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
         TurnManagerRequest.instance.StartAttacks(); 
     }
     #endregion
@@ -193,7 +196,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    public void RefresUIAttacksResult(string pokemonAttacked, float effective)
+    public void RefresUIAttacksResult(string pokemonAttacked, float effective, bool TheresAWinner)
     {
         information_Panel.SetActive(true);
         ImageCard_Panel.SetActive(false);
@@ -216,7 +219,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Debug.Log("It's effective.");
                 break;
         }
-        //StartCoroutine(nextAttackTurn());
+        StartCoroutine(TheresAWinnerCoroutine());
     }
 
     #endregion
