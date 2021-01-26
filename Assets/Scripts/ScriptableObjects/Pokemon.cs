@@ -6,6 +6,8 @@ public class Pokemon : ScriptableObject
     public new string name;
     public Sprite pokemonImage;
     public Type[] types;
+    public Sprite typeSprite;
+    public Color typeColor;
     public int level;
 
     //Stats
