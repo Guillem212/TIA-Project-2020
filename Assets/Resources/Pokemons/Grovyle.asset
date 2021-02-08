@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Grovyle
   m_EditorClassIdentifier: 
   name: Grovyle
-  model: {fileID: 8020546195841224893, guid: 23f39df1e6abb8a42a68df2aeb6ac9f6, type: 3}
+  pokemonImage: {fileID: 21300000, guid: 412cbbdf4b2b13c4c97f7e2d077a4879, type: 3}
   types: 09000000
+  typeSprite: {fileID: 21300000, guid: d489d3dc04fa3b3458c14f436ea32529, type: 3}
+  typeColor: {r: 0.15294118, g: 0.7411765, b: 0.33333334, a: 0.6}
   level: 50
   hp: 90
   attack: 110
@@ -23,7 +25,7 @@ MonoBehaviour:
   specialDefense: 80
   velocity: 95
   m_attacks:
-  - {fileID: 11400000, guid: 2134ef39da69aa942a365f0f0c89ff36, type: 2}
-  - {fileID: 11400000, guid: b557ce018598ece47a2b4396ac1b7918, type: 2}
-  - {fileID: 11400000, guid: 056eeb557496888429764b8f17003fc5, type: 2}
-  - {fileID: 11400000, guid: 76005426db5ff294a889e51916b2acea, type: 2}
+  - {fileID: 11400000, guid: 31e638eb884fc174b8532b6ef4b3d3e4, type: 2}
+  - {fileID: 11400000, guid: d1e1dd5a24e806d439f66f0e998d3594, type: 2}
+  - {fileID: 11400000, guid: 7b089a2b569198f4d981cfb2ddb9455c, type: 2}
+  - {fileID: 11400000, guid: 5c849e7266fd72c409e414188b07f113, type: 2}

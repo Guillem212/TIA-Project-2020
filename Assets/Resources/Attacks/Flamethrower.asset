@@ -22,3 +22,6 @@ MonoBehaviour:
   category: 1
   statusModified: 0
   objective: 1
+  typeSprite: {fileID: 21300000, guid: 6f782285e4f4eb644a4261f5d72e5516, type: 3}
+  categorySprite: {fileID: 21300000, guid: 6fae0fd789a179b46b91be278dbda216, type: 3}
+  attackClip: {fileID: 8300000, guid: 560d1db3ea7d75d4c97a24aabe1b04ef, type: 3}

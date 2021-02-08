@@ -7,6 +7,7 @@ using UnityEngine.Android;
 public class VoiceController : MonoBehaviour
 {
     const string LANG_CODE = "en-EU";
+    
 
     public string speech;
 
@@ -14,6 +15,7 @@ public class VoiceController : MonoBehaviour
 
     private void Awake()
     {
+
         if(instance is null)
         {
             instance = this;
@@ -73,11 +75,5 @@ public class VoiceController : MonoBehaviour
     private void Setup(string code)
     {
         SpeechToText.instance.Setting(code);
-    }
-
-    private void OnGUI()
-    {
-        Rect r = new Rect(new Vector2(100, 100), Vector2.one * 100);
-        GUI.TextArea(r, speech);
     }
 }

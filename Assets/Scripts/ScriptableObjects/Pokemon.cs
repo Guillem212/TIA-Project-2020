@@ -4,8 +4,10 @@
 public class Pokemon : ScriptableObject
 {
     public new string name;
-    public GameObject model;
+    public Sprite pokemonImage;
     public Type[] types;
+    public Sprite typeSprite;
+    public Color typeColor;
     public int level;
 
     //Stats
@@ -15,6 +17,7 @@ public class Pokemon : ScriptableObject
     public int defense;
     public int specialDefense;
     public int velocity;
+    public int player_id;
 
     //Set Of Attacks
     public Attack[] m_attacks;

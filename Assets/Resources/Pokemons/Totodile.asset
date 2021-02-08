@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Totodile
   m_EditorClassIdentifier: 
   name: Totodile
-  model: {fileID: 1674720710304538406, guid: 180e514718db84e45a285a31fa7d2935, type: 3}
+  pokemonImage: {fileID: 21300000, guid: 71097d08fcda9c9498f71d8ca795cdd4, type: 3}
   types: 00000000
+  typeSprite: {fileID: 21300000, guid: 059003e2678084e4cae29833ff2acf95, type: 3}
+  typeColor: {r: 0.20784315, g: 0.62352943, b: 0.8745099, a: 0.6}
   level: 50
   hp: 90
   attack: 110
@@ -23,7 +25,7 @@ MonoBehaviour:
   specialDefense: 80
   velocity: 95
   m_attacks:
-  - {fileID: 11400000, guid: 2134ef39da69aa942a365f0f0c89ff36, type: 2}
-  - {fileID: 11400000, guid: b557ce018598ece47a2b4396ac1b7918, type: 2}
-  - {fileID: 11400000, guid: 056eeb557496888429764b8f17003fc5, type: 2}
-  - {fileID: 11400000, guid: 76005426db5ff294a889e51916b2acea, type: 2}
+  - {fileID: 11400000, guid: 5df9340886303b9448e788669d1931d6, type: 2}
+  - {fileID: 11400000, guid: 61291438b74160147973b2de19d2607a, type: 2}
+  - {fileID: 11400000, guid: 487d80a082eec284dbcba4278424e3bb, type: 2}
+  - {fileID: 11400000, guid: 98a63dc6203e71f48b852203fbe99439, type: 2}

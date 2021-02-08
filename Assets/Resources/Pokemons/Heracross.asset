@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Heracross
   m_EditorClassIdentifier: 
   name: Heracross
-  model: {fileID: 2483371489970664833, guid: fcbec06cbec664845ad4fdc821cfb441, type: 3}
+  pokemonImage: {fileID: 21300000, guid: a6e6204157223724c9384aae7185df67, type: 3}
   types: 00000000
+  typeSprite: {fileID: 21300000, guid: 7776387a08cda9c449ecd0100a5ec6bb, type: 3}
+  typeColor: {r: 0.5254902, g: 0.7372549, b: 0.15686275, a: 0.6}
   level: 50
   hp: 90
   attack: 110
@@ -23,7 +25,7 @@ MonoBehaviour:
   specialDefense: 80
   velocity: 95
   m_attacks:
-  - {fileID: 11400000, guid: 2134ef39da69aa942a365f0f0c89ff36, type: 2}
-  - {fileID: 11400000, guid: b557ce018598ece47a2b4396ac1b7918, type: 2}
-  - {fileID: 11400000, guid: 056eeb557496888429764b8f17003fc5, type: 2}
-  - {fileID: 11400000, guid: 76005426db5ff294a889e51916b2acea, type: 2}
+  - {fileID: 11400000, guid: 8f6aa4e003f735448945ae6608da501d, type: 2}
+  - {fileID: 11400000, guid: 69bdb5da82102f14f9853cfc300571b7, type: 2}
+  - {fileID: 11400000, guid: c741d26feaabe714397069b1330dbdad, type: 2}
+  - {fileID: 11400000, guid: 83a0cc9f5c8459f4eb76ee0d8eb36766, type: 2}
