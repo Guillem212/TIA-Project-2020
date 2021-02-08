@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     #region PUN CALLBACKS
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        _ShowAndroidToastMessage("Opponent trainer left the Match");
+        _ShowAndroidToastMessage("Opponent trainer left the Match, returning to menu");
         StopAllCoroutines();
         PhotonNetwork.AutomaticallySyncScene = false;
         PhotonNetwork.LeaveRoom();

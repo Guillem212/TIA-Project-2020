@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -84,13 +84,10 @@ public class TurnManagerRequest : MonoBehaviourPun
                 break;
             }
         }
-        DEBUGSTRING += $"PLAYER{attacker} HACE UNA REQUEST CON {newRequest.m_Attacker.name} A {newRequest.m_Defender.name} USANDO {newRequest.m_Attack.name}" ;
-        //GameManager.instance.information_Panel.SetActive(true);
-        //GameManager.instance.information_Panel.GetComponent<TMPro.TextMeshProUGUI>().text = DEBUGSTRING;
+        DEBUGSTRING += $"PLAYER{attacker} HACE UNA REQUEST CON {newRequest.m_Attacker.name} A {newRequest.m_Defender.name} USANDO {newRequest.m_Attack.name}";
         int Priority = aux1.velocity + newRequest.m_Attack.priority;
         if(requests.ContainsKey(Priority)) Priority--;
         requests.Add(Priority, newRequest);
-        DEBUGSTRING += " Capacidad de la lista: " +  requests.Count;
     }
 
 /// <summary>
@@ -103,6 +100,7 @@ public class TurnManagerRequest : MonoBehaviourPun
     public void SendAttackResult(int player_id, int damageReceived, float effective){ 
         string attackedPokemon = "";
         bool TheresAWinner = false;
+        //El canvas no va, hay que arreglarlo.----------------------------------------------------------------------------------------------------------------------------------------------------QUE NO VA
         if(player_id == GameManager.instance.player_id)
         {
             GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp -= damageReceived;
@@ -224,7 +222,7 @@ public class TurnManagerRequest : MonoBehaviourPun
             }
             else
             {
-                 switch (AuxAttack.statusModified)
+                switch (AuxAttack.statusModified)
                 {
                     case StatusModified.HP:
                         break;
@@ -284,7 +282,7 @@ public class TurnManagerRequest : MonoBehaviourPun
     private void OnAttack(Attack attack, Pokemon defending, Pokemon attacking)
     {
         float result = CalculateDamagedBasedOnTheMatrixtype(attack, defending);
-        view.RPC("SendAttackResult", RpcTarget.All, GameManager.instance.player_id, CalculateDamageGiven(attacking, defending, attack, result), result);
+        view.RPC("SendAttackResult", RpcTarget.All, attacking.player_id, CalculateDamageGiven(attacking, defending, attack, result), result);
     }
 
     /// <summary>
@@ -386,16 +384,11 @@ public class TurnManagerRequest : MonoBehaviourPun
         if(x == 1)
         {
             yield return new WaitForSeconds(2f);
-            if(GameManager.instance.player.GetComponent<Player>().activePokemon.hp <= 0 || GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp <= 0)
-            {
-                
-            }
-            else
+            if(GameManager.instance.player.GetComponent<Player>().activePokemon.hp > 0 && GameManager.instance.player.GetComponent<Player>().ObjectiveActivePokemon.hp > 0)
             {
                 GameManager.instance.AttackTurn();
                 requests.Clear();
             }
-
         } 
     }
     #endregion
