@@ -29,7 +29,7 @@ Unity
 * [Photoshop](https://www.adobe.com/es/products/photoshop.html)
 * [Illustrator](https://www.adobe.com/es/products/illustrator.html)
 
-## Autores ✒️
+## Authors ✒️
 
 * **Ricardo Pardo** - *Online and Animations*
 * **Guillem Ortega** - *Voice commands, ARFundation and Pokemon Gameplay*
