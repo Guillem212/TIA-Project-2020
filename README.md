@@ -34,4 +34,4 @@ Unity
 * **Ricardo Pardo** - *Online and Animations*
 * **Guillem Ortega** - *Voice commands, ARFundation and Pokemon Gameplay*
 
-You can also look at the list of all [contributors] (https://github.com/Guillem212/UJI-2020-IA/contributors) who have participated in this project.
+You can also look at the list of all [contributors] (https://github.com/Guillem212/TIA-Project-2020/contributors) who have participated in this project.
